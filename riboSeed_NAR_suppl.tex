@@ -1,0 +1,438 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nick Waters's super awesome template for biorXiv submissions
+
+% In memory of Henry, Hermione, and Angus.
+% May there be many tasty snails in pufferfish heaven
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{article}
+
+\usepackage{geometry}
+\geometry{marginparwidth=1cm,a4paper,verbose,tmargin=1.5cm,bmargin=1.5cm,lmargin=1.5cm,rmargin=1.5cm,headheight=0cm,headsep=0cm,footskip=0cm}
+\usepackage{cite}
+% \usepackage{hyperref} % make the references clickable
+\setlength\parindent{0pt} % set indent to zero
+\setlength{\parskip}{1.2em} % give a bit of space between paragraphs
+
+\bibliographystyle{plain} % citation and bib style
+\usepackage{grffile} %for underscores in file names
+\usepackage[ruled]{algorithm2e} % for typesetting the riboSeed algorithm
+\setlength{\algotitleheightrule}{0pt}
+\usepackage{lineno, color} % controls line numbering
+\modulolinenumbers[5]  % number every 5th line
+% format our line numbers, cause no one likes boring numbers
+\renewcommand\linenumberfont{\normalfont\tiny\color{blue}}
+\usepackage{booktabs}  % less yucky tables
+% nice little thing for table spacing (thanks Markus Püschel)
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usepackage{multirow} % for some pretty tables with merged cells
+
+% my lined-off abstract
+\newenvironment{myabstract}{%
+\begin{quote} \baselineskip14pt \rule{.89\textwidth}{1.5pt} \vskip .1cm}
+{ \vskip -.10cm \rule{.89\textwidth}{1.5pt} \end{quote}}
+
+% supplementary (essentialy just resets numbering)
+\newcommand{\beginsupplement}{%
+  \setcounter{table}{0}
+  \renewcommand{\thetable}{S\arabic{table}}%
+  \setcounter{figure}{0}
+  \renewcommand{\thefigure}{S\arabic{figure}}%
+}
+% pretty thought break
+\def \thoughtbr {\begin{center}\noindent\rule{.4\textwidth}{0.4pt}  {\raisebox{-.5ex}{$\sim$}}  \rule{.4\textwidth}{0.4pt}\end{center}}
+
+% \usepackage{graphicx}
+\graphicspath{ {a_riboFigs/} }  %  set the path to the figures
+
+\usepackage{titlesec} % for adjusting spacing after the section headers
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{-11pt plus 0pt minus 0pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{-11pt plus 0pt minus 0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% this hack stolen from Stack overflow is a macro to make a \cmmidrule
+% for each column.  I added the ".4" spacing to get this to look prettier
+%  if you have 5 columns, instead of \midrule, you could use \cmidrules{5}
+\makeatletter
+\newtoks\MD@cmidrules
+\newcommand{\cmidrules}[1]{%
+  \noalign{%
+    \global\MD@cmidrules={}%
+    \toks@={\cmidrule(l{.3\tabcolsep}r{.3\tabcolsep})}%
+    \count@=\z@
+    \loop\ifnum\count@<#1\relax
+      \advance\count@\@ne
+      \edef\MD@temp{\the\toks@{\the\count@-\the\count@}}%
+      \global\MD@cmidrules\expandafter{\the\expandafter\MD@cmidrules\MD@temp}%
+    \repeat
+  }%
+  \the\MD@cmidrules
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%  This allows us to set the table font size up top
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{tabular}{\begin{center}\footnotesize}
+\AfterEndEnvironment{tabular}{\end{center}}
+%%%%
+
+\def \coli#1 {\textit{E.~coli~#1~}} %  #lazy
+\def \ttilde {\raisebox{-.5ex}\textasciitilde} % fix for ugly cmodern tilde 20160829
+
+%  format captions
+\usepackage[%
+    font={small},
+    labelfont=bf,
+    format=hang,
+    format=plain,
+    margin=0pt,
+    width=0.9\textwidth]{caption}
+\usepackage[list=true]{subcaption}  % allow for subfigures with captions
+\usepackage{amssymb}  % for checkmark symbols
+\usepackage{graphicx}  % trim figures
+\usepackage{colortbl}  % adjust table colors
+\definecolor{lgray}{gray}{.90}  % line grey
+\definecolor{tgray}{gray}{.40}  % text grey
+\definecolor{egray}{gray}{.01}  % emphasis grey
+\usepackage[yyyymmdd,hhmmss]{datetime} % for timestamp
+
+\title{\textbf{Supplementary Data}\\ \fontseries{m}\selectfont riboSeed: leveraging prokaryotic genomic architecture to assemble across ribosomal regions}
+
+\author
+{\small Nicholas R. Waters,$^{1,2\ast}$ Florence Abram,$^{1}$ Ashleigh Holmes,$^{3}$ Fiona Brennan,$^{1,4}$ and Leighton Pritchard$^{2\ast}$\\
+\\
+\normalsize{\textit {$^{1}$Department of Microbiology, School of Natural Sciences, National University of Ireland, Galway, Ireland}}\\
+\normalsize{\textit {$^{2}$Information and Computational Sciences, James Hutton Institute, Invergowrie, Dundee DD2 5DA, Scotland}}\\
+\normalsize{\textit {$^{3}$Cell and Molecular Sciences, James Hutton Institute, Invergowrie, Dundee DD2 5DA, Scotland}}\\
+\normalsize{\textit {$^{4}$Soil and Environmental Microbiology, Environmental Research Centre, Johnstown Castle, Wexford, Ireland}}\\
+\\
+\footnotesize{$^\ast$To whom correspondence should be addressed: nickp60@gmail.com,  leighton.pritchard@hutton.ac.uk}
+}
+\date{}
+
+\begin{document}
+\baselineskip20pt  % set line spacing; double spacing is 2xfontsize, in this case 11
+\maketitle
+\vspace*{-1.5cm}
+{\begin{center}\footnotesize\date{Compiled: \today ~\currenttime}\end{center}}
+
+\beginsupplement
+\section*{Extended Methods}
+
+
+
+
+\subsection*{Making the artificial test genome}
+The artificial genome used for testing was constructed using the \texttt{makeToyGenome.sh} script included in the GitHub repository under the \textbf{\texttt{scripts}} directory. Briefly, the 7 rDNA regions from the \coli{Sakai} genome were extracted with 5kb flanking sequence upstream and downstream; these sequences were then concatenated end to end to form a single, \ttilde100kb sequence containing the 7 rDNAs as well as their flanking context.
+
+
+\subsection*{Effect of reference sequence identity on riboSeed performance}
+
+The following range of substitutions were introduced into a artificial genome using the \texttt{runDegenerate.sh} script (included in the GitHub repository under the \textbf{\texttt{scripts}} directory), which facilitates the following procedure: 0.0, 0.0025, 0.0050, 0.0075, 0.0100, 0.0150, 0.0200, 0.0250, 0.0500, 0.0750, 0.1000, 0.1250, 0.1500, 0.1750, 0.2000, 0.2250, 0.2500, 0.2750, 0.3000. An artificial test genome is constructed (see above), and reads simulated using pIRS (100bp, 300bp inserts, stdev 10, 30-fold coverage, built-in error profile).  Then, for each of a range of substitution frequencies, substitutions are introduced into the simulated genome, either just in the flanking regions or throughout. riboSeed is run on the reads using the mutated genome as the reference, and the results are evaluated with riboScore. This script was run 100 times, using a different random seed each time.  As pseudo random number generation may differ between operating systems, comparable but not identical results can be expected.
+
+\section*{Performance on Archaeal Data}
+
+% \subsection*{}
+We assessed the effectiveness of riboSeed with assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, applicability was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (Ion Torrent PGM, 89bp single-end reads) and \textit{Methanobacterium formicicum st. BRM9} (Illumina HiSeq 2000, 100bp paired-end reads). \textit{Methanobacterium formicicum st. JCM10132} (DRR017790 ) and \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) were the only ones that were suitable for riboSeed, meaning that there was publicly available short read data and that there is a related genome at the species level which is complete.
+
+
+\textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of single-end data. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. The resulting \textit{de fere novo} assembly resulted in assembly of 1 of 2 rDNA gaps. This represents the first application of riboSeed to Ion Torrent data.
+
+
+\textit{Methanosarcina barkeri Fusaro DSMZ804} was sequenced using an Illumina HiSeq2000 with 101bp paired-end reads, with an average fragment length of 400bp. We downsampled to use 5\% of the 19.4Gbp dataset. \textit{Methanosarcina barkeri str. Wiesmoor} was used as a reference. The resulting riboSeed assembly showed correct assembly of 3 of 3 rDNAs, while \textit{de novo} assemble failed to resolve any.
+
+
+Taken together, we show that given appropriate datasets, archaeal datasets can be processed in the same manner used for bacteria.
+
+\thoughtbr
+\newpage
+
+\begin{table}[]
+  \centering
+  \caption{Hits resulting from searching the SRA database for various sequencing technologies as of January, 2017}
+  \label{table:searchterms}
+  \begin{tabular}{lrr}
+    \toprule
+    Search term & Hits & Percentage \\
+    \midrule
+    illumina & 2242225 & 94.27 \\
+    pacbio & 21131 & 0.89 \\
+    ion & 30560 & 1.28 \\
+    roche & 42445 & 1.78 \\
+    oxford & 12301 & 0.52 \\
+    solid & 29791 & 1.25 \\
+    \arrayrulecolor{lgray}\hline
+    Total & 2378453 & 100\\
+    \arrayrulecolor{black}
+    \bottomrule
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!h]
+\centering
+\caption{Accessions for 25 \textit{E. coli} genomes}
+\label{table:accessions}
+\begin{tabular}{l}
+  \toprule
+  GCA\_000021125.1\_ASM2112v1 \\
+  GCA\_000023665.1\_ASM2366v1 \\
+  GCA\_000026545.1\_ASM2654v1 \\
+  GCA\_000262125.1\_ASM26212v1 \\
+  GCA\_000273425.1\_Esch\_coli\_MG12655\_V1 \\
+  GCA\_000299255.1\_ASM29925v1 \\
+  GCA\_000714595.1\_ASM71459v1 \\
+  GCA\_000967155.1\_HUSEC2011CHR1 \\
+  GCA\_000974405.1\_ASM97440v1 \\
+  GCA\_000974465.1\_ASM97446v1 \\
+  GCA\_000974575.1\_ASM97457v1 \\
+  GCA\_001020945.2\_ASM102094v2 \\
+  GCA\_001566675.1\_ASM156667v1 \\
+  GCA\_002012245.1\_ASM201224v1 \\
+  GCA\_001750845.1\_ASM175084v1 \\
+  GCA\_001886755.1\_ASM188675v1 \\
+  GCA\_001901145.1\_ASM190114v1 \\
+  GCA\_002012145.1\_ASM201214v1 \\
+  GCA\_900096815.1\_Ecoli\_AG100\_Sample2\_M9\_Assembly \\
+  GCA\_002116715.1\_ASM211671v1 \\
+  GCA\_002118095.1\_ASM211809v1 \\
+  GCA\_002125925.1\_ASM212592v1 \\
+  GCA\_001612475.1\_ASM161247v1 \\
+  GCA\_001651965.1\_ASM165196v1 \\
+  GCA\_001721125.1\_ASM172112v1\\
+  \bottomrule
+  {\tiny   All available at \texttt{ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/}}
+
+\end{tabular}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{table}[]
+\centering
+\caption{Strain names and accessions for reference genomes used in this study}
+\label{table:strainlist}
+\begin{tabular}{ll}
+  \toprule
+  Strain Name & Accession \\
+  \midrule
+  \textit{E. coli MG1655} & NC\_000913.3 \\
+  \textit{A. hydrophila ATCC 7966} & NC\_008570.1 \\
+  \textit{B. cereus ATCC 10987} & AE017194.1 \\
+  \textit{B. cereus NC7401} & NC\_016771.1 \\
+  \textit{B. fragilis 638R} & FQ312004.1 \\
+  \textit{R. sphaeroides ATCC 17029} & NC\_009049.1, NC\_009050.1 \\
+  \textit{S. aureus TCH1516} & NC\_010079.1 \\
+  % \textit{S. aureus NCTC 8325} & NC\_007795.1 \\
+  % \textit{S. aureus FDA209P} & AP014942.1 \\
+  \textit{S. aureus MRSA252} & BX571856.1 \\
+  \textit{V. cholerae El Tor str. N16961} & NC\_002505.1, NC\_002506.1 \\
+  \textit{X. axonopodis pv. Citrumelo} & CP002914.1 \\
+  \textit{P. aeruginosa BAMCPA07-48} & CP015377.1 \\
+  \textit{P. aeruginosa ATCC 15692} & NZ\_CP017149.1\\
+  \bottomrule
+
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+  \centering
+  \caption{Software Versions}
+  \label{table:software}
+  \begin{tabular}{ll}
+    \toprule
+    Tool & Version \\
+    \midrule
+    Mauve & 2015-02-13 build 0 \\
+    BLAST+ & 2.2.28+ \\
+    Barrnap & 0.7 \\
+    BWA & 0.7.12-r1039 \\
+    samtools & 1.3.1 \\
+    MAFFT & v7.215 \\
+    SPAdes & v3.9.0 \\
+    QUAST & 4.1 \\
+    bedtools & 2.17.0 \\
+    EMBOSS & 6.6.0 \\
+    pIRS & 2.0.2\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\SetKwProg{Scan}{riboScan}{ }{end}
+\SetKwProg{Select}{riboSelect}{ }{end}
+\SetKwProg{Seed}{riboSeed}{ }{end}
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{.6\linewidth}
+    \begin{algorithm}[H]
+      % \KwData{reference, reads}
+      %  % initialization\;
+      % \Scan{(reference fastas)}{
+      % \For{chromosome in reference}{
+      % run Barrnap to find rRNAs\;
+      % add locus tags to gff\;
+      % convert to genbank\;
+      % }
+      %   combine genbanks\;
+      %   return scannedScaffolds\;
+      % }
+      %   \hrule
+      % % \end{algorithm}
+      % % \pagebreak
+      % % \begin{algorithm}[H]
+      %   \Select{(scannedScaffolds)}{
+      %   parse coordinated of rRNAs\;
+      %   cluster into operons\;
+      %   return grouped\_loci\;
+      % }
+      %   \hrule
+      % \end{algorithm}
+      % \pagebreak
+      % \begin{algorithm}[H]
+      %   \Seed{(scannedScaffolds, grouped\_loci, reads, iters)}{
+      %   reference = scannedScaffolds\;
+      %   clusters = parse grouped\_loci\;
+      %   \For{i in iters}{
+      %   map reads to reference\;
+      %   \For{cluster in clusters}{
+      %   filter and extract reads within clusters and flanking\;
+      %   subassemble with SPAdes\;
+      %   return pseudocontig\;
+      % }
+      %   assess subassembly\;
+      %   \If {success}{
+      %   make fauxgenome from pseudocontigs \;
+      %   reference = fauxgenome
+      %   continue
+      % }
+      %   \If{last iteration}{
+      %   run SPAdes with pseudocontigs\;
+      % }
+      % }
+      % }
+      \Seed{(reference, riboSelect\_clusters, reads, iters, flanking\_width)}{
+        ref = reference\;
+        clusters = parse riboSelect\_clusters\;
+        region = clusters + flanking\_width\;
+        \For{i in iters}{
+          map reads to ref\;
+          \For{cluster in clusters}{
+            filter and extract reads region\;
+            subassemble\;
+            return pseudocontig\;
+          }
+          assess subassembly\;
+          \If {success}{
+            make pseudogenome from pseudocontigs \;
+            ref = pseudogenome \;
+          }
+        }
+        run assembler with reads and pseudocontigs\;
+      }
+    \end{algorithm}
+  \end{minipage}
+  \caption{Pseudocode of riboSeed algorithm}
+  \label{fig:algo}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 5
+
+
+\begin{figure}[!h]
+    \centering
+    \hspace*{0cm}\includegraphics[width=.8\textwidth]{sakai_BLAST_results}
+    \caption{BLASTn was used to perform \textit{in silico} DNA-DNA hybridization of all rDNA regions from \textit{E. coli Sakai} with variable flanking lengths. The number of hits is a proxy for occurrences in the genome; increasing the flanking length increases the specificity.}
+    \label{fig:blast}
+  \end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \hspace*{0cm}\includegraphics[width=.60\textwidth]{simulated_genome}
+    \caption{Assembly of artificial genome. \textit{De fere novo} results in closure of 3-5 rDNAs with the correct reference; only 1-2 rDNAs are correctly assembled using \textit{K. pneumoniae}.  No rDNAs are assembled with \textit{de novo} assembly. Scored with riboScore.py. N=8.}
+    \label{fig:simgenome}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_000913.3_entropy_plot}
+    \caption{\textit{E. coli MG1655} (NC\_000913.3)}
+    \label{fig:ent_coli}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/CP003200.1_entropy_plot}
+    \caption{\textit{K. pneumoniae subsp. pneumoniae HS11286} (CP003200.1) }
+    \label{fig:ent_pneumo}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NZ_CP017149.1_entropy_plot}
+    \caption{\textit{P. aeruginosa strain ATCC 15692} (NZ\_CP017149.1)}
+    \label{fig:ent_pao}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_008570.1_entropy_plot}
+    \caption{\textit{A. hydrophila ATCC 7966} (NC\_008570.1)}
+    \label{fig:ent_aero}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/AE017194.1_entropy_plot}
+    \caption{\textit{B. cereus ATCC 10987} (AE017194.1)}
+    \label{fig:ent_cereus_atcc}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_016771.1_entropy_plot}
+    \caption{\textit{B. cereus NC7401} (NC\_016771.1)}
+    \label{fig:ent_cereus_nc}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/FQ312004.1_entropy_plot}
+    \caption{\textit{B. fragilis 638R} (FQ312004.1)}
+    \label{fig:ent_frag}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_009050.1_entropy_plot}
+    \caption{\textit{R. sphaeroides  ATCC 17029} (NC\_009049.1, NC\_009050.1)}
+    \label{fig:ent_rhodo}
+  \end{subfigure}
+\end{figure}
+\begin{figure}
+  \centering
+  \ContinuedFloat
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_010079.1_entropy_plot}
+    \caption{\textit{S. aureus TCH1516} (NC\_010079.1)}
+    \label{fig:ent_tch}
+  \end{subfigure}
+  % \begin{subfigure}[b]{.45\textwidth}
+  %   \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_007795.1_entropy_plot}
+  %   \caption{\textit{S. aureus NCTC 8325} (NC\_007795.1)}
+  %   \label{fig:ent_nctc}
+  % \end{subfigure}
+  % \begin{subfigure}[b]{.45\textwidth}
+  %   \includegraphics[width=0.95\textwidth]{gage_entropy_figures/AP014942.1_entropy_plot}
+  % \caption{\textit{S. aureus FDA209P} (AP014942.1)}
+  % \label{fig:entfda}
+  % \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_002506.1_entropy_plot}
+    \caption{\textit{V. cholerae El Tor str. N16961} (NC\_002505.1) (NC\_002506.1)}
+    \label{fig:ent_vib}
+  \end{subfigure}
+  \begin{subfigure}[b]{.45\textwidth}
+    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/CP002914.1_entropy_plot}
+    \caption{\textit{X. axonopodis pv. Citrumelo} (CP002914.1)}
+  \end{subfigure}
+  \caption{riboScan.py,riboSelect.py, and riboSnag.py were run on all the genomes used as references for \textit{de fere novo} assemblies. Consensus alignment depth (grey bars) and Shannon entropy (black points, smoothed entropy as red line) for aligned rDNA regions.}
+  \label{fig:ent_gage}
+
+\end{figure}
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass[12pt]{letter}
+\usepackage[a4paper,left=2.5cm, right=2.5cm, top=0.5cm, bottom=0.5cm]{geometry}
+% Some of the article customisations are relevant for this class
+
+\name{Nicholas R. Wat} % To be used for the return address on the envelope
+\signature{Nicholas R. Waters} % Goes after the closing (ie at the end of the letter, with space for a signature)
+\address{Nicholas R. Waters  \\ Department of Microbiology \\ National University of Ireland, Galway \\ Galway, Ireland}
+% Alternatively, these may be set on an individual basis within each letter environment.
+
+\makelabels % this command prints envelope labels on the final page of the document
+
+\begin{document}
+\begin{letter}{ Nucleic Acids Research  \\  Oxford Journals  \\  Oxford University Press }
+
+\opening{Dear Dr. Fox and Dr. Stoddard,} % eg Hello.
+
+I am pleased to submit our original research article entitled ``riboSeed: leveraging prokaryotic genomic architecture to assemble across ribosomal regions'', by Nicholas R. Waters, Florence Abram, Ashleigh Holmes, Fiona Brennan, and Leighton Pritchard, for consideration for publication in NAR. This work outlines a  novel method for improving genome assembies from short reads, and uncovers unexplored biological trends that enable the method.
+
+The operons coding for ribosomal RNA subunits (rDNAs) are known to be highly conserved, and this charactaristic enables 16S-based community ecological studies. rDNAs are known to occur up to 15 times within a single prokaryotic genome, creating repeated regions problematic for short read assembly. We show that the regions flanking equivalent rDNAs across taxa are conserved, and further, that these flanking regions are uniquely distinguishable within a single isolate. These two findings allowed us to develop riboSeed, which uses the rDNA flanking regions from a reference genome as a ``prior'' to resolve rDNA repeats. Comparison to hybrid assembly shows riboSeed assemblies to be of very high quality. Lastly, we show that when used in conjunction with other genome finishing tools, some draft assemblies can be brought to competition.
+
+We believe that the novelty of both the biological findings (characterization of rDNA flanking regions) and the method implemented as riboSeed are of interest to wide range of NAR readers: those interested in the computational leverage gained through our method,  microbial ecologists, and those simply seeking to make the most out of their sequencing data.  The method has been validated against gold-standard bacterial datasets, and fills a unique niche in the genome polishing field.
+
+This manuscript is unpublished and is not under consideration for publication elsewhere; it has been posted to bioRxiv to allow for early criticism of the work. We have no conflicts of interest to disclose. If you agree that the manuscript is appropriate for your journal, we suggest the following reviewers:
+
+Thank you for your consideration!
+
+\closing{Best,} % eg Regards,
+
+% \cc{} % people his letter is cc-ed to
+\encl{Waters\_et\_all: zipped directory containing source for compilation of manuscript and supplementary materials} % list of anything enclosed
+% \ps{} % any post scriptums. ``PS'' labels must be put in manually
+
+\end{letter}
+\end{document}
