@@ -149,7 +149,10 @@ We present riboSeed: a software suite that allows users to perform \textit{de fe
 riboSeed relies on a closed reference genome assembly that is sufficiently closely-related to the isolate being assembled (which can be estimated using an alignment-free approach such as the KGCAK database\cite{Wang2015b}), in which rDNA regions are assembled and known to be in the correct context, as discussed below.
 
 \subsection*{Usage}
-After installation (via either pip, conda, homebrew, or GitHub), the pipeline can be executed with a single command, \texttt{run\_riboSeed.py}. The riboSeed pipeline  proceeds in three stages: preprocessing, \textit{de fere novo} assembly, and assessment/visualization.
+After installation (via either conda, pip, or GitHub), the pipeline can be executed with a single command, \texttt{run\_riboSeed.py}. This performs the reannotation of the rDNAs in the reference genome (\texttt{riboScan.py}), operon inference (\texttt{riboSelect.py}), and \textit{de fere novo} assembly (\texttt{riboSeed.py}).  The most commonly used parameters are accessible via \texttt{run\_riboSeed.py} arguments, but the full parameters for each of the programs can be set within a config file.
+
+
+The programs included in the riboSeed suite can be categories into three groups of tools: preprocessing, \textit{de fere novo} assembly, and assessment/visualization.
 
 \subsection*{1. Preprocessing}
 
@@ -211,6 +214,7 @@ The riboSeed pipeline and the datasets generated during the current study are av
 \section{RESULTS}
 
 Settings used for analyses in this manuscript are the defaults (except where otherwise noted) as of riboSeed version 0.4.09\cite{nicholas_r_waters_2017_832131}.
+< CHANGE! >
 
 \subsection*{Characteristics of rDNA flanking regions}
 The use of rDNA flanking sequences to uniquely identify and place rDNAs in their genomic context requires their flanking sequences to be distinct within the genome for each region. This is expected to be the case for most, if not all, prokaryotic genomes. We determined that using 1kb flanking widths was sufficient to include differentiating sequence (Figure S2). To demonstrate this, rDNA and 1kb flanking regions were extracted from \textit{E. coli} Sakai \cite{Hayashi2001} (BA000007.2), in which the rDNAs have been well characterized\cite{Ohnishi2000}. These regions were aligned with MAFFT\cite{Katoh2002}, and their consensus depth and Shannon entropy\cite{Schmitt1997} calculated for each position in the alignment (Figure \ref{fig:entropy}a).
@@ -220,8 +224,6 @@ Figure \ref{fig:entropy}a (and Figure S4) shows that within a single genome the 
 In \textit{E. coli} MG1655, the first rDNA is located 363 bases downstream of \textit{gmhB} (locus tag b0200). Homologous rDNA regions were extracted from 25 randomly selected complete \textit{E. coli} chromosomes (Table S2).  We identified the 20kb region surrounding \textit{gmhB} in each of these genomes, then annotated and extracted the corresponding rDNA and flanking sequences. These sequences were aligned with MAFFT, and the Shannon entropies and consensus depth plotted (Figure \ref{fig:entropy}b).
 
 Figure \ref{fig:entropy}b shows that equivalent \textit{E. coli} rDNAs, plus their flanking regions, are well-conserved across several related genomes. Assuming that individual rDNAs are monophyletic within a taxonomic group, short reads that can be uniquely placed on a related genome's rDNA as a reference template are also likely able to be uniquely-placed in the appropriate homologous rDNA of the genome to be assembled.
-
-
 
 Taken together, when these two properties hold, this allows for unique placement of reads from homologous rDNA regions in the appropriate genomic context. These ``anchor points'' effectively reduce the number of branching possibilities in de Bruijn graph assembly for each individual rDNA, and thereby permit a complete balanced path through the full rDNA region.
 
