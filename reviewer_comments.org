@@ -3,12 +3,20 @@
 ** Comments for the Author
 1.The manuscript need to be shorten considerably and proper flow to be maintained.
 **** not sure if I aggree, but I will definitly try to imrove readability
+RESPONSE:
+We have considered shortening the manuscript, but have found that difficult.  As the method relies on two previously undocumented biological findings regarding the rDNAs (namely, the within-genome uniqueness and the across-genomes conservation), we are forced to sustantiate these claims prior to detailing our method. We have attempted to strealine the implementation and descriptions of the software components for better flow, and revised the paper throughout.
+
 2.Reproduction of the method is difficult from the written method. Needs the method to be simplified.
 **** added run script + config, added to conda
+RESPONSE:  While the reviewer clearly made no effor to reproduce the written method, the pipeline has been reconfigured to be run with a single script instead of the three steps of preprocessing, operon prediction, and de fere novo assembly.
+
 3. It is known fact that flanking regions of rDNA are conserved in a genome, so any other novelty used in this strategy?
 **** No, this is just not true.  Citation please.
+RESPONSE:  We would respectfully ask that the reviewer would substantiate this claim with a citation, as this does not appear to be the case.  Further, we perform important charactarization of this finding across a range of bacterial species.  Apart from the novel software package we are reporting, we are the first (to our knowledge) to use this "known fact" to improve genome assembly.
+
 4. The article is already available online: http://www.biorxiv.org/content/early/2017/07/14/159798 (doi.org/10.1101/159798) at bioRxiv. Therefore I am not sure if it violates the NAR policy.
 **** if you agree to review, read the policies of the journal before making this 25% of your critique of the paper
+RESPONSE:  I am surprised that the reviewers have no means of accessing NAR's policy, perhaps by performing a web search of the string "Nucleic Acid Research preprint".
 
 
 * Referee: 2
@@ -19,15 +27,25 @@ This manuscript describes a DNA sequence assembly pipeline, riboSeed, that addre
 
 In simulated and real data the riboSeed de fere novo method out-performed the de novo assembly method. While that result is good the see, it isn’t necessarily surprising, as reference-based assemblies should always out-perform de novo assemblies in repeat regions.
 
+RESPONSE: We agree, but  being able to improve asembly from only using only 1/300th of the reference (in the case of E. coli, for instance) in a hands-free approach, highlighting the relatively reference agnostic nature of the method might be considered bemusing at least, if not surprising.
+
 Overall I think the manuscript is well-written, there are however a few tables and figures I would like to see revised and improved (see specific comments). Also, the first two subsections of the Results section seem to be more Materials and Methods than actually reporting results. I appreciate that the authors report other genome polishing tools for gap closure, but I wish some tool comparisons were done so I could understand how much better riboSeed is doing compared to the other tools. I think the concept of “de fere novo” is humorous and makes sense to me, but I don’t see that sticking in the community, as the term “reference-based” is already widely accepted for this methodology (granted this method is a bit more de novo than most reference-based methods).
 
+REPONSE:  We thank the reviewer for their kind words! We felt (as still feel) that the novelty of characterizing the rDNA flanking regions within genomes and  within taxa warrented their place in the results section, as the proceeding findings hinge on the reliability of those claims. As for the tables, we are considering combining them as a single table with subsections;  effor was made to ensure that the column headings stayed the same across the experiments, as differing headers might mislead the reader.  "De fere novo" may never stick, but we believe in the importance of an actuarate ontological description of a process that would be miss-represented by calling it either "reference-based" or "reference-free" due to the diregard riboSeed has for roughly 99.7% of the reference.
+
 I regret that I do not have sufficient time to download and use the riboSeed code on a test dataset, but I will commend the authors for putting together a clear and well-documented GitHub repository. As a casual observer I’m a bit intimidated by how many parameters and scripts there are in the code base, but from the perspective of a researcher who is desperate to close a bacterial genome I think I would be willing to forgo time spent tinkering with all of the parameters if it helped the assembly. riboSeed seems less automated than most reference-based assembly pipelines.
+
+RESPONSE:  We appreciate the reviewers apraisal of the Ducmentation found on the GitHub repo. Additionally, we have made use of Readthedocs.io to host even more documentation.
 
 Lastly, I have left several specific comments below, some of which are minor, others are a little more important. The largest conflicts I could find in the methods/implementation of riboSeed is:
 
 (1) Likely the most important decision a riboSeed user has is “which reference should I use” and the authors don’t give a great deal of advice on that subject (though KGCAK is recommended). They do demonstrate that selecting the (obviously wrong) reference can lead to a poor assembly (Fig. 3), but I would like to see a more specific set of instructions for users to follow to get a good reference sequence (maybe using phylogeny?). Also, how easy is it to know that a genome has all rDNA regions assembled and known to be in the right context/order? Seems like there’s a need for tools/methods to verify that more easily (though the authors do mention 16Stimator).
 
+RESPONSE:  This is an important critique and we thank the reviewe for raising it.  In response, we have used Kraken construct a "suggestion" database consisting of a representative of each of the complete prokaryotic genomes found in NCBI.  The users can, after installing kraken, find the closest full genome n the database to their sequence, and use that as a reference.  We do not include the database in the repository as it would exceed the policies of Github.com.
+
 (2) The use of the reference genome’s ribosomal operon as a “trusted contig” in the initial SPAdes assembly. It’s still unclear to me how SPAdes handles trusted (and untrusted) contigs and I’m also confused by why they recommend users not to feed in contigs of “related species”, which is what the pipeline does. Maybe they’re worried that with a related reference the assembly will drift away from the sample’s genome and toward that reference. That might not be an issue for riboSeed because the pseudocontigs are later re-assembled iteratively by only the reads. Would want to see how (or even if) using the reference genome as a trusted contig helps or hurts the results.
+
+RESPONSE:  This, too, is a very valid critique. We have included in the supplementary materials data regarding the use of this parameter.  We hope that by showing the
 
 *** Specific Comments:
 
