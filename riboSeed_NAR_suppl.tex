@@ -119,6 +119,24 @@
 \beginsupplement
 \section*{Extended Methods}
 
+\subsection*{Reference Selection Recommendations}
+Using a close reference sequence maximizes your chance for a successful assembly.
+
+Here are two ways that can be used reference to select a reference for your isolate: a robust method, and a quick method.
+
+\subsubsection{Method 1: Kraken}
+
+Kraken is a kmer-based phylogeny tool that can be used to idenify the strains present in a metagenomic dataset;  the installation and usage instructions can be found here: \url{https://ccb.jhu.edu/software/kraken/}. Download and install Kraken, along with the MiniKraken database from their website. Run Kraken on the isolate's reads, and generate the Kraken report.
+
+The MiniKraken database was built from all the complete genomes from RefSeq, allowing the user identify which strain in the database has the closest match to the sequenced isolate.
+
+\subsubsection{Method #2: reads2type and  cgFind}
+<https://nickp60.github.io/cgfind>`
+
+
+reads2type is also a kmer-based phylogeny tool, but it relies on a lightweight, prebuilt database that allows the analysis to be performed in your web browser, and it doesn't require you to upload your whole read file to a webserver.  It works by taking one read at a time from your file, generating 55-mers, and comparing to its databse. If there is not enough taxanomic information to indentify the isolate off of that read alone, additional reads will be processed until a single taxonomy is achieved.  This method works best on trimmed reads. `Instructions and the webserver can be found here <https://cge.cbs.dtu.dk/services/Reads2Type/>`__
+
+Once you have a genus and species, you can use ``cgfind``, a tool we developed to provide easy access to downloadable genomes based on the complete prokaryotic genomes found in NCBI.  `it can be found here <https://nickp60.github.io/cgfind>`__  Just enter your genus and species name, and select one of the available strains to download.
 
 
 
@@ -143,6 +161,22 @@ We assessed the effectiveness of riboSeed with assembling archaeal genomes. Most
 
 
 Taken together, we show that given appropriate datasets, archaeal datasets can be processed in the same manner used for bacteria.
+
+\section*{Key Parameters}
+\subsection*{\texttt{--ref_as_contig}}
+The assembly that results from including riboSeed's ``long reads'' is sensitive to the manner in which they are incorporated into the \textit{de novo} assembly. Here, for our analyses, we used the SPAdes assembler, as it has built-in ways to include contigs (using the ``--trusted-contigs'' or ``--untrusted-contigs'') in FASTA format.  Other assemblers could be used, but most require long reads to have a quality score associate with them, preventing direct use of riboSeeds long reads.
+
+As mentioned in the Methods section, riboSeed uses the reference rDNA region in the initial subassembly;  in subsequent subassemblies, the longest contig of the previous subsassembly is used.  The manner in which these regions are can be one of four options to \texttt{--ref_as_contig}: \texttt{trusted}, \texttt{untrusted}, \texttt{inferr}, or \texttt{ignore}.  Additionally, if the user is worried that the reference rDNA will too heavily influence the initial subassembly, the can enable the \texttt{--initial_consensus} flag to use a mapping consensus assembly instead of the de Bruijn graph based assembly from SPAdes.
+
+The default manner in which rDNA regions (either from the reference or from the previous iteration's subassembly) behaviour is to infer (\texttt{--ref_as_contig infer}): if the percent of reads mapping to  the (whole) reference sequence  is over 80\%, than the rDNA region will be included as a trusted contig.  If below 80\%, the reads will be treated as untrusted.
+
+If a user wishes to have the subassemblies only using the reads (true \textit{de novo} assembly), they can use the \texttt{ignore} option.  We only recommend this with very close references.
+
+Further, if the user wishes to explicity define the behaviour, \texttt{trusted} or \texttt{untrusted} can be provided to the \texttt{--ref_as_contig} argument.
+
+
+
+
 
 \thoughtbr
 \newpage
@@ -248,10 +282,10 @@ Taken together, we show that given appropriate datasets, archaeal datasets can b
     BLAST+ & 2.2.28+ \\
     Barrnap & 0.7 \\
     BWA & 0.7.12-r1039 \\
-    samtools & 1.3.1 \\
+    samtools & 1.4.1 \\
     MAFFT & v7.215 \\
     SPAdes & v3.9.0 \\
-    QUAST & 4.1 \\
+    QUAST & 4.4 \\
     bedtools & 2.17.0 \\
     EMBOSS & 6.6.0 \\
     pIRS & 2.0.2\\
