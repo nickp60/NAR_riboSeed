@@ -146,7 +146,6 @@ Briefly, riboSeed uses rDNA regions from a closely-related organism's genome to 
 We present riboSeed: a software suite that allows users to perform \textit{de fere novo} assembly, given a reference genome sequence from a closely-related organism and single or paired-end short reads (Figure \ref{fig:overview}). The code is primarily written in Python3, with accessory shell and R scripts.
 
 
-
 riboSeed relies on a closed reference genome assembly that is sufficiently closely-related to the isolate being assembled (which can be estimated using an alignment-free approach such as the KGCAK database\cite{Wang2015b}, or a kmer based method such as Kraken<cite>), in which rDNA regions are assembled and known to be in the correct context, as discussed below.
 
 In an ideal scenario, reference selection would consist of two steps:  isolate identification (using Kraken), and then average nucleotide identity analysis to find closest complete reference. We detail the steps to both this method and a less-rigorous but faster method in our documentation at \url{http://riboseed.readthedocs.io/en/latest/REFERENCE.html}.
@@ -256,7 +255,8 @@ The \textit{de fere novo} assembly bridged 4 of the 7 rDNA regions in the artifi
 
 
 \subsection*{Effect of reference sequence identity on riboSeed performance}
-To investigate how riboSeed assembly is affected by choice of reference strain, we implemented a simple mutation model to generate reference sequence variants of the artificial chromosome described above, with a specified rate of mutation.  A simple model of geometrically-distributed mutations at a desired mutation frequency applied across all bases uniformly does not address the disparity of conservation between rDNAs and their flanking region, but a second model was also applied wherein substitutions were allowed only within the rDNA flanking regions. We then assembled the artificial genome's reads using the mutated artificial genome as a reference, using these models (Figure \ref{fig:degen}).
+To investigate how riboSeed assembly is affected by choice of reference strain, we implemented a simple mutation model to generate reference sequence variants of the artificial chromosome described above, with a specified rate of mutation. A simple model of geometrically-distributed mutations at a desired mutation frequency applied across all bases uniformly does not address the disparity of conservation between rDNAs and their flanking region, but a second model was also applied wherein substitutions were allowed only within the rDNA flanking regions. We then assembled the artificial genome's reads using the mutated artificial genome as a reference, using these models (Figure \ref{fig:degen}).  Because the range of substitution exceeded our recommended threshold sequence identity, all pseudocontigs were included in subassemblies as ``trusted'' contigs; supplementary figure XXX shows the same analysis with default settings (where the trustworthiness of pseudocontigs is determined by mapping quality; seed discussion).
+
 
 \begin{figure}[!b]
   \centering
@@ -266,7 +266,7 @@ To investigate how riboSeed assembly is affected by choice of reference strain, 
 \end{figure}
 
 
-To obtain an estimate of substitution rate for the \textit{E. coli} data used above, Parsnp\cite{Treangen2014} and Gingr\cite{Treangen2014} were used to identify SNPs in the 25 genomes used above (Figure \ref{fig:entropy}), with respect to the same region in \textit{E. coli} Sakai. An average substitution rate of 0.0062 was observed. Compared to the results from the simulated genomes, we could expect successful riboSeed performance under the model of mutated flanking regions, and partial success under the model of substitutions throughout the region.
+To obtain an estimate of substitution rate for the \textit{E. coli} strains used above, Parsnp\cite{Treangen2014} and Gingr\cite{Treangen2014} were used to identify SNPs in the 25 genomes (Figure \ref{fig:entropy}), with respect to the same region in \textit{E. coli} Sakai. An average substitution rate of 0.0035 was observed. Compared to the results from the simulated genomes, we could expect successful riboSeed performance under the model of mutated flanking regions, and partial success under the model of substitutions throughout the region.
 
 
 Figure \ref{fig:degen} indicates that the more similar the reference sequence is to the genome being assembled, the greater the likelihood of correctly assembling through rDNA regions. When mutating only the flanking regions (Figure \ref{fig:degen}), which more closely resembles the relative sustitution frequencies of the rDNA regions, the procedure correctly assembles rDNAs with tolerance to substitution frequencies up to approximately 30 substitutions per kb.  With the widely-adopted average nucleotide identity species boundary of 95\% \cite{Goris2007a}, it could be concluded that riboSeed will correctly place and assemble nearly all rDNA regions when using a reference within the same species, and that moderate success can be achieved even when using a more distantly-related reference.
@@ -306,27 +306,6 @@ At either 20x or 50x coverage, \textit{de novo} assembly was unable to resolve a
 
 
 \subsection*{Benchmarking against hybrid sequencing and assembly}
-% \begin{table*}[!ht]
-%   \centering
-
-%   \caption{Assembly of Hybrid-Sequenced \textit{P. aeruginosa} BAMCPA07-48}
-%   \label{table:paohybrid}
-%   \begin{tabular}{p{4.9cm}p{.95cm}p{.75cm}p{.75cm}p{2.0cm}p{.6cm}>{\hfill}p{.3cm}p{.2cm}p{.2cm}p{.3cm}p{.2cm}p{.2cm}}
-%     % \arrayrulecolor{black}
-%     \toprule
-%     \multirow{2}{*}{Sequenced Strain Name} & \multirow{2}{*}{Platform}  & \multirow{2}{*}{Length} & \multirow{2}{*}{Depth}  &  \multicolumn{2}{c}{Reference Strain} &  \multicolumn{3}{c}{\textit{de novo}} & \multicolumn{3}{c}{\textit{de fere novo}} \\
-%                             &   &   &   & Name & rDNAs  &  \textbf{$\checkmark$} & -- & $\times$ &  \textbf{$\checkmark$} & -- & $\times$  \\
-%                             % \cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}\cmidrule(l){4-4}\cmidrule(l){5-6}\cmidrule(l){7-9}\cmidrule(l){10-12}
-%     \colrule
-%     \textit{P. aeruginosa} BAMCPA07-48 & HiSeq & 100 & 200x & ATCC 15692  & 4 & \textbf{0} & 4 & 0 & \textbf{4} & 0 & 0 \\
-%     \botrule
-%     \begin{minipage}[t]{.5\textwidth}
-%       {\tiny
-%         $\checkmark$ correct assembly; -- skipped assembly; $\times$ incorrect assembly
-%       }
-%     \end{minipage}
-%   \end{tabular}
-% \end{table*}
 
 To establish whether riboSeed performs as well with short reads obtained by sequencing a complete prokaryotic chromosome as with simulated reads, we attempted to assemble short reads from a published hybrid Illumina/PacBio sequencing project. The hybrid assembly using long reads was able to resolve rDNAs directly, and provides a benchmark against which to assess riboSeed performance in terms of: (i) bridging sequence correctly across rDNAs, and (ii) assembling rDNA sequence accurately within each cluster.
 
@@ -336,6 +315,8 @@ Sanjar, et al. published the genome sequence of \textit{Pseudomonas aeruginosa} 
 \textit{de fere novo} assembly correctly assembled across all 4 rDNA regions, whereas \textit{de novo} assembly failed to assemble any rDNA regions (Table \ref{table:assemblyresults}A).
 
 Comparing the BAMCPA07-48 reference to the \textit{de fere novo} assembly, we found a total of 9 SNPs in the rDNA flanking regions (Table \ref{table:snps}). The same regions from the ATCC 15692 reference used in the \textit{de fere novo} assembly showed 103 SNPs compared to the BAMCPA07-48.  This demonstrates that this subassembly scheme successfuly recovers the correct sequence with remarkably few SNPs, despite a large number of differences between the reference and the sequenced isolate.
+
+Further, to compare how riboSeed's assembly would compare to simply supplying the whole reference as a trusted (or untrusted) contig to SPAdes, we performed both assemblies and calculated the number of SNPs compared to the hybrid assembly.
 
 Thus, we find that the \textit{de fere novo} assembly using short reads performs better than \textit{de novo} assembly using short reads alone. Comparison of the \textit{de fere novo} assembly to the hybrid assembly allows assessment of \textit{de fere novo} accuracy, and indicates that \textit{de fere novo} can recover the rDNA sequence correctly placed in their genomic context, and with a low error rate.
 
@@ -438,7 +419,8 @@ We modified the BugBuilder pipeline (\url{https://github.com/nickp60/BugBuilder}
     \botrule
     \begin{minipage}[t]{.5\textwidth}
       {\tiny
-        $\checkmark$  correct assembly; --  unnassembled; $\times$  incorrect assembly
+        $\checkmark$  correct assembly; --  unnassembled; $\times$  incorrect assembly\\
+        % * run with \texttt{--centers 7:0} option to group tandem rDNAs
       }
     \end{minipage}
   \end{tabular}
