@@ -314,9 +314,10 @@ Sanjar, et al. published the genome sequence of \textit{Pseudomonas aeruginosa} 
 
 \textit{de fere novo} assembly correctly assembled across all 4 rDNA regions, whereas \textit{de novo} assembly failed to assemble any rDNA regions (Table \ref{table:assemblyresults}A).
 
-Comparing the BAMCPA07-48 reference to the \textit{de fere novo} assembly, we found a total of 9 SNPs in the rDNA flanking regions (Table \ref{table:snps}). The same regions from the ATCC 15692 reference used in the \textit{de fere novo} assembly showed 103 SNPs compared to the BAMCPA07-48.  This demonstrates that this subassembly scheme successfuly recovers the correct sequence with remarkably few SNPs, despite a large number of differences between the reference and the sequenced isolate.
+Comparing the BAMCPA07-48 reference to the \textit{de fere novo} assembly, we found a total of 9 SNPs in the rDNA flanking regions (Table \ref{table:snps}). The same regions from the ATCC 15692 reference used in the \textit{de fere novo} assembly showed 108 SNPs compared to the BAMCPA07-48.  This demonstrates that this subassembly scheme successfuly recovers the correct sequence with remarkably few SNPs, despite a large number of differences between the reference and the sequenced isolate.
 
-Further, to compare how riboSeed's assembly would compare to simply supplying the whole reference as a trusted (or untrusted) contig to SPAdes, we performed both assemblies and calculated the number of SNPs compared to the hybrid assembly.
+Further, to compare how riboSeed's assembly would compare to simply supplying the whole reference as a trusted contig to SPAdes (which, it is worth noting, is not recommended by the SPAdes authors, we assembled the same reads with the \textit{P. aeruginosa} ATCC 15692 as a trusted contig, and compared the results to the \textit{de fere novo} and \textit{de novo} assemblies. While \textit{de novo} assembly yielded the lowest error rates, and \textit{reference-based}  assembly yielded the longest contigs, \textit{de fere novo} assembly proved to be an optimal compromise, as it exhibited very low error rates, the hightest genome recovery fraction, and the lowest number of contigs (Table S5).
+
 
 Thus, we find that the \textit{de fere novo} assembly using short reads performs better than \textit{de novo} assembly using short reads alone. Comparison of the \textit{de fere novo} assembly to the hybrid assembly allows assessment of \textit{de fere novo} accuracy, and indicates that \textit{de fere novo} can recover the rDNA sequence correctly placed in their genomic context, and with a low error rate.
 
@@ -345,6 +346,7 @@ Thus, we find that the \textit{de fere novo} assembly using short reads performs
   \botrule
 \end{tabular}
 \end{table}
+
 
 
 \subsection*{Case Study: Closing the assembly of \textit{S. aureus} UAMS-1}
