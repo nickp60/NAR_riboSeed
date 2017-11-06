@@ -300,10 +300,10 @@ Using a close reference sequence maximizes chances of a successful assembly. We 
 
 Kraken\cite{Wood2014} is a kmer-based phylogeny tool that can be used to identify the strains present in a metagenomic dataset;  the installation and usage instructions can be found here: \href{https://ccb.jhu.edu/software/kraken/}{https://ccb.jhu.edu/software/kraken/}. After downloading and installing Kraken, along with the MiniKraken database from their website, Kraken can be run on an isolate's reads, generating the a taxonomy report.
 
-The MiniKraken database was built from all the complete genomes from RefSeq, allowing the user identify which strain in the database has the closest match to the sequenced isolate.
+The MiniKraken database was built from all the complete genomes from RefSeq, allowing the user to identify which strain in the database has the closest match to the sequenced isolate.
 
 \subsubsection*{Method 2: Reads2Type and  cgFind}
-Reads2Type\cite{Saputra2015} is also a kmer-based phylogeny tool, but it relies on a lightweight, prebuilt database of 55-mers from a set of reference strains. This allows the analysis to be performed in the web browser, and it does not require the user to upload the whole read files, allowing it to perform well when either speed or network access is limited.  It works by taking one read at a time from your file, generating 55-mers, and comparing to a prebuild database. If there is not enough resolution information to identify the isolate on that read alone, additional reads will be processed until a single taxonomy is achieved.  This method works best on trimmed reads. Instructions and the webserver can be found at \href{https://cge.cbs.dtu.dk/services/Reads2Type/}{https://cge.cbs.dtu.dk/services/Reads2Type/}
+Reads2Type\cite{Saputra2015} is also a kmer-based phylogeny tool, but it relies on a lightweight, prebuilt database of 55-mers from a set of reference strains. This allows the analysis to be performed in the web browser, and it does not require the user to upload the whole read files, allowing it to perform well when either speed or network access is limited.  It works by taking one read at a time from a file, generating 55-mers, and comparing to a prebuild database. If there is not enough resolution information to identify the isolate on that read alone, additional reads will be processed until a single taxonomy is achieved.  This method works best on trimmed reads. Instructions and the webserver can be found at \href{https://cge.cbs.dtu.dk/services/Reads2Type/}{https://cge.cbs.dtu.dk/services/Reads2Type/}
 
 Now, given the genus and species from Reads2Type, users can make use of cgFind, our web tool developed to provide easy access to downloadable genomes based on the complete prokaryotic genomes found in NCBI. The tool can be found at \href{https://nickp60.github.io/cgfind}{https://nickp60.github.io/cgfind}.
 
@@ -331,7 +331,7 @@ Taken together, we show that given appropriate datasets and parameters, archaeal
 \subsection*{\texttt{--ref\_as\_contig}}
 The assembly that results from including riboSeed's ``long reads'' is sensitive to the manner in which they are incorporated into the \textit{de novo} assembly. Here, for our analyses, we used the SPAdes assembler \cite{Bankevich2012}, as it has built-in ways to include contigs (using the ``--trusted-contigs'' or ``--untrusted-contigs'') in FASTA format.  Other assemblers could be used, but most require long reads to have a quality score associate with them, preventing direct use of riboSeeds long reads.
 
-As mentioned in the Methods section, riboSeed uses the reference rDNA region in the initial subassembly;  in subsequent subassemblies, the longest contig of the previous subsassembly is used.  The manner in which these regions are can be one of four options to \texttt{--ref\_as\_contig}: \texttt{trusted}, \texttt{untrusted}, \texttt{inferr}, or \texttt{ignore}.  Additionally, if the user is worried that the reference rDNA will too heavily influence the initial subassembly, the can enable the \texttt{--initial\_consensus} flag to use a mapping consensus assembly instead of the de Bruijn graph based assembly from SPAdes.
+As mentioned in the Methods section, riboSeed uses the reference rDNA region in the initial subassembly;  in subsequent subassemblies, the longest contig of the previous subsassembly is used.  These regions can be treated one of four ways using the \texttt{--ref\_as\_contig} argument: \texttt{trusted}, \texttt{untrusted}, \texttt{inferr}, or \texttt{ignore}.  Additionally, if the user is worried that the reference rDNA will too heavily influence the initial subassembly, they can enable the \texttt{--initial\_consensus} flag to use a mapping consensus assembly instead of the de Bruijn graph based assembly from SPAdes.
 
 The default manner in which rDNA regions (either from the reference or from the previous iteration's subassembly) behaviour is to infer (\texttt{--ref\_as\_contig infer}): if the percent of reads mapping to  the (whole) reference sequence  is over 80\%, than the rDNA region will be included as a trusted contig.  If below 80\%, the reads will be treated as untrusted.
 
@@ -340,7 +340,7 @@ If a user wishes to have the subassemblies only using the reads (true \textit{de
 Further, if the user wishes to explicity define the behaviour, \texttt{trusted} or \texttt{untrusted} can be provided to the \texttt{--ref\_as\_contig} argument.
 
 \subsection*{\texttt{--score\_min}}
-By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If need, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be adventageous when assembling a low coverage dataset.
+By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If needed, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be adventageous when assembling a low coverage dataset.
 
 \section*{Excluding GAGE-B HiSeq \textit{B. cereus}}
 
