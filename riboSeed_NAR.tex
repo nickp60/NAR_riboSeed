@@ -12,7 +12,7 @@
 % \externaldocument[ ]{riboSeed_NAR_suppl}
 
 \usepackage{caption}
-\graphicspath{ {../riboSeed/Waters_et_al_2017/ms/riboFigs/} }  %  set the path to the figures
+\graphicspath{ {./riboFigs/} }  %  set the path to the figures
 
 \begin{document}
 
@@ -213,7 +213,7 @@ The riboSeed pipeline and the datasets generated during the current study are av
 
 \section{RESULTS}
 
-Settings used for analyses in this manuscript are the defaults (except where otherwise noted) as of riboSeed version 0.4.35\cite{nicholas_r_waters_2017_832131}. [NOTE: CHANGE TO NEW ZENODO DOI]
+Settings used for analyses in this manuscript are the defaults (except where otherwise noted) as of riboSeed version 0.4.35\cite{nicholas_r_waters_2017_1037965}.
 
 \subsection*{Characteristics of rDNA flanking regions}
 The use of rDNA flanking sequences to uniquely identify and place rDNAs in their genomic context requires their flanking sequences to be distinct within the genome for each region. This is expected to be the case for most, if not all, prokaryotic genomes. We determined that using 1kb flanking widths was sufficient to include differentiating sequence (Figure S2). To demonstrate this, rDNA and 1kb flanking regions were extracted from \textit{E. coli} Sakai \cite{Hayashi2001} (BA000007.2), in which the rDNAs have been well characterized\cite{Ohnishi2000}. These regions were aligned with MAFFT\cite{Katoh2002}, and their consensus depth and Shannon entropy calculated for each position in the alignment (Figure \ref{fig:entropy}a).
@@ -471,6 +471,6 @@ We thank Anton Korobeynikov for his recommendations on optimizing SPAdes. Yoann 
 None declared.
 
 \bibliographystyle{unsrt}
-\bibliography{/home/nicholas/GitHub/riboSeed/Waters_et_al_2017/ms/riboSeed_refs}
+\bibliography{riboSeed_refs}
 
 \end{document}
