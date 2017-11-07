@@ -142,17 +142,15 @@ Briefly, riboSeed uses rDNA regions from a closely-related organism's genome to 
 
 
 \section{MATERIALS AND METHODS}
-We present riboSeed: a software suite that allows users to perform \textit{de fere novo} assembly, given a reference genome sequence from a closely-related organism and single or paired-end short reads (Figure \ref{fig:overview}). The code is primarily written in Python3, with accessory shell and R scripts.
+We present riboSeed: a software suite that allows users to perform \textit{de fere novo} assembly, given a reference genome sequence from a closely-related organism and single or paired-end short reads to be assembled (Figure \ref{fig:overview}). The code is primarily written in Python3, with accessory shell and R scripts.
 
 
-riboSeed relies on a closed reference genome assembly that is sufficiently closely-related to the isolate being assembled (which can be estimated using an alignment-free approach such as the KGCAK database\cite{Wang2015b}, or a kmer based method such as Kraken\cite{Wood2014}), in which rDNA regions are assembled and known to be in the correct context, as discussed below.
+riboSeed relies on a closed reference genome assembly that is sufficiently closely-related to the isolate being assembled (which can be estimated using an alignment-free approach such as the KGCAK database\cite{Wang2015b}, or a kmer based method such as Kraken\cite{Wood2014}), in which rDNA regions are assembled and assumed to be in the correct genomic context.
 
-In an ideal scenario, reference selection would consist of two steps:  isolate identification (using Kraken), and then average nucleotide identity analysis to find closest complete reference. We detail the steps to both this method and a less-rigorous but faster method in our documentation at \url{http://riboseed.readthedocs.io/en/latest/REFERENCE.html}.
+In an ideal scenario, reference selection would consist of two steps:  isolate identification (using Kraken), and then average nucleotide identity analysis to find closest complete reference. We outline protocols for reference selection in Supplementary Information, and in riboSeed documentation at \url{http://riboseed.readthedocs.io/en/latest/REFERENCE.html}.
 
 \subsection*{Usage}
-After installation (via either conda, pip, or GitHub), which installs the \texttt{ribo} program entry point, the pipeline can be executed with a single command, \texttt{ribo run}. This performs the reannotation of the rDNAs in the reference genome (\texttt{scan} command), operon inference (\texttt{select} command), and \textit{de fere novo} assembly (\texttt{seed} command).  The most commonly used parameters are accessible via \texttt{run} arguments, but the full parameters for each of the programs can be set within a configuration file. The submoules can be accessed with the format \texttt{ribo <command> [options]}.
-
-The programs included in the riboSeed suite can be categorized into three groups of tools: preprocessing, \textit{de fere novo} assembly, and assessment/visualization.
+Installation (via either conda, pip, or GitHub), installs the \texttt{ribo} program. Installation using conda also installs third-party tool dependencies, such as SPAdes, and is recommended. The riboseed pipeline can be executed with a single command, \texttt{ribo run}, or under control of the user by means of distinct commands. \texttt{ribo run} performs reannotation of rDNAs in the reference genome (\texttt{scan} command), operon inference (\texttt{select} command), and \textit{de fere novo} assembly (\texttt{seed} command).  The most commonly used parameters are accessible via the \texttt{run} command. Alternatively, the full set of parameters for riboSeed can be defined within a configuration file.
 
 \subsection*{1. Preprocessing}
 
