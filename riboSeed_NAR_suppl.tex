@@ -303,7 +303,7 @@ Kraken\cite{Wood2014} is a \textit{k}-mer-based phylogeny tool that can be used 
 The MiniKraken database was built from all the complete genomes from RefSeq, allowing the user to identify which strain in the database has the closest match to the sequenced isolate.
 
 \subsubsection*{Method 2: Reads2Type and  cgFind}
-Reads2Type\cite{Saputra2015} is also a kmer-based phylogeny tool, but it relies on a lightweight, prebuilt database of 55-mers from a set of reference strains. This allows the analysis to be performed in the web browser, and it does not require the user to upload complete read files, allowing it to perform well when either speed or network access is limited.  It works by taking one read at a time from the input file, generating 55-mers, and comparing to a prebuilt database. If there is not enough resolution information to identify the isolate by that read alone, additional reads are processed until a single taxonomy identification is achieved.  This method works best on trimmed reads. Instructions and the webserver can be found at \href{https://cge.cbs.dtu.dk/services/Reads2Type/}{https://cge.cbs.dtu.dk/services/Reads2Type/}
+Reads2Type\cite{Saputra2015} is also a \textit{k}-mer-based phylogeny tool, but it relies on a lightweight, prebuilt database of 55-mers from a set of reference strains. This allows the analysis to be performed in the web browser, and it does not require the user to upload complete read files, allowing it to perform well when either speed or network access is limited.  It works by taking one read at a time from the input file, generating 55-mers, and comparing to a prebuilt database. If there is not enough resolution information to identify the isolate by that read alone, additional reads are processed until a single taxonomy identification is achieved.  This method works best on trimmed reads. Instructions and the webserver can be found at \href{https://cge.cbs.dtu.dk/services/Reads2Type/}{https://cge.cbs.dtu.dk/services/Reads2Type/}
 
 Given the genus and species from Reads2Type, users can make use of cgFind, a web tool we developed to provide easy access to downloadable genomes based on the complete prokaryotic genomes found in NCBI. The tool can be found at \href{https://nickp60.github.io/cgfind}{https://nickp60.github.io/cgfind}.
 
@@ -319,7 +319,7 @@ The following range of substitutions were introduced into a artificial genome us
 
 We assessed the effectiveness of riboSeed in assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, our ability to benchmark was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (Illumina HiSeq 2000, 100bp paired-end reads) and \textit{Methanobacterium formicicum st. JCM10132} (DRR017790, Ion Torrent PGM, 89bp single-end reads). \textit{Methanobacterium formicicum st. BRM9} and \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) were the only ones that were suitable for riboSeed, in that there was both publicly available short read data and that there is a complete reference genome at the species level.
 
-\textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of single-end data. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. While riboSeed with default parameters did not resolve any of the assembly gaps (final assembly kmers 21, 33, 55, and 77), re-running the final assembly with kmers of 21, 33, 55, 77, and 99 resulted in closing 2 of 2 rDNA gaps. We are unsure why the addition of 99-mers improved assembly with 89-bp reads, but we are actively investigating this. This represents the first application of riboSeed to Ion Torrent data.
+\textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of single-end data. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. While riboSeed with default parameters did not resolve any of the assembly gaps (final assembly \textit{k}-mers 21, 33, 55, and 77), re-running the final assembly with \textit{k}-mers of 21, 33, 55, 77, and 99 resulted in closing 2 of 2 rDNA gaps. We are unsure why the addition of 99-mers improved assembly with 89-bp reads, but we are actively investigating this. This represents the first application of riboSeed to Ion Torrent data.
 
 
 \textit{Methanosarcina barkeri Fusaro DSMZ804} was sequenced using an Illumina HiSeq2000 with 101bp paired-end reads, with an average fragment length of 400bp. We downsampled to use 5\% of the 19.4Gbp dataset with seqtk (\href{https://github.com/lh3/seqtk}{https://github.com/lh3/seqtk}). \textit{Methanosarcina barkeri str. Wiesmoor} (CP009526.1) was used as a reference. The resulting riboSeed assembly showed correct assembly of 3 of 3 rDNAs, while \textit{de novo} assemble failed to resolve any.
@@ -337,10 +337,10 @@ The default manner in which rDNA regions (either from the reference or from the 
 
 If a user wishes to have the subassemblies only using the reads (true \textit{de novo} assembly), they can use the \texttt{ignore} option.  We only recommend this with very close references.
 
-Further, if the user wishes to explicity define the behaviour, \texttt{trusted} or \texttt{untrusted} can be provided to the \texttt{--ref\_as\_contig} argument.
+Further, if the user wishes to explicitly define the behaviour, \texttt{trusted} or \texttt{untrusted} can be provided to the \texttt{--ref\_as\_contig} argument.
 
 \subsection*{\texttt{--score\_min}}
-By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If needed, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be adventageous when assembling a low coverage dataset.
+By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If needed, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be advantageous when assembling a low coverage dataset.
 
 \section*{Excluding GAGE-B HiSeq \textit{B. cereus}}
 
@@ -362,50 +362,13 @@ By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the re
   \label{fig:contamination_all}
 \end{figure}
 
-The GAGE-B paper \cite{Magoc2013} notes that the \textit{B. cereus} HiSeq dataset proved particularly difficult to assemble. After noticing this irregularity, we re-assembled the trimmed reads downloaded from the GAGE-B website with metaSPAdes\cite{Nurk2017}  using default parameters.  Then, blastn was used to search the resulting contigs against NCBI's nt database (May, 2017) to get a list of hits according to the blobtools <cite> specifications. Blobtools was then used to plot the hit coverage, taxonomy, and GC-content of the contigs.  This revealed what appears to be a contamination. \ref{fig:contamination_all}A. As the GC content of the contaminating organisms did not differ from \textit{B. cereus}, we believe that many tools that use GC-skew to detect contamination would not have detected the problem with this dataset.
+The GAGE-B paper \cite{Magoc2013} notes that the \textit{B. cereus} HiSeq dataset proved particularly difficult to assemble. After noticing this irregularity, we re-assembled the trimmed reads downloaded from the GAGE-B website with metaSPAdes\cite{Nurk2017}  using default parameters.  Then, blastn was used to search the resulting contigs against NCBI's nt database (May, 2017) to get a list of hits according to the blobtools \cite{Laetsch2017a} specifications. Blobtools was then used to plot the hit coverage, taxonomy, and GC-content of the contigs.  This revealed what appears to be a contamination. \ref{fig:contamination_all}A. As the GC content of the contaminating organisms did not differ from \textit{B. cereus}, we believe that many tools that use GC-skew to detect contamination would not have detected the problem with this dataset.
 
 
-To further show the contamination, we split reads into those read pairs mapping to the \textit{B. cereus} ATCC 10987 reference genome and those unmapped.  BWA MEM\cite{Li2013} was used to map the 12039737 reads to the reference genome;  samtools was used to separate the 7500534 reads (62\%) that mapped from the 3984200 reads (33\%) that failed to map with default parameters\footnote{The remaining \ttilde5 percent are those pairs where only one read aligned to the reference; these were ignored for this analysis.}.Each of these sets of reads was then assembled, BLASTed against the nt database, and plotted with blobtools \ref{fig:contamination_all}B and C.
+To further show the contamination, we split reads into those read pairs mapping to the \textit{B. cereus} ATCC 10987 reference genome and those unmapped.  BWA MEM\cite{Li2013} was used to map the 12039737 reads to the reference genome;  samtools was used to separate the 7500534 reads (62\%) that mapped from the 3984200 reads (33\%) that failed to map with default parameters\footnote{The remaining \ttilde5 \% are those pairs where only one read aligned to the reference; these were ignored for this analysis.}.Each of these sets of reads was then assembled, BLASTed against the nt database, and plotted with blobtools \ref{fig:contamination_all}B and C.
 
 
 Further, MaxBin\cite{Wu2014}, Kraken, and MBBC\cite{Wang2011} also supported the hypothesis that the sample is contaminated with approximately one third of reads originating from a non-\textit{B. cereus} strain.
-
-\section*{Case Study: Closing the assembly of \textit{S. aureus} UAMS-1}
-We attempted to use riboSeed to close the  \textit{S. aureus} UAMS-1 genome (JTJK00000000), as rDNAs are not resolved in the current assembly. We did not have access to critical information about the pipeline parameters used in the original assembly, which prevented exact recapitualtion of the published results;  therefore, we approximated the settings based on the original publications's settings\cite{Sassi2015}.
-
-The BugBuilder pipeline\cite{Abbott2017} was modified to include the pseudocontigs generated by riboSeed; we comparted the performance of Pilon, GapFiller, and no finishing softare with both the \textit{de fere novo} and \textit{de novo} assemblies.  QUAST was used to calculate assembly metrics compared to the MRSA252 genome, and Mauve was used to visualize scaffolds to compare as. All assemblies resulted in a single scaffold (updates to BugBuilder and many of its dependencies prevented exact recapitulation of the published assembly), but scaffolds varried in length, number of ambiguous bases, and resolution of rDNA repeats.
-
-\begin{table}[ht]
-\begin{center}
-  \caption{Assembling \textit{S. aureus} UAMS-1 with BugBuilder. rDNA counts and QUAST metrics of scaffolds compared to \textit{S. aureus} MRSA252 reference}
-\begin{tabular}{l|rrr|rrr}
-
-  Assembly & \multicolumn{3}{c}{\textit{de fere novo}} & \multicolumn{3}{c}{\textit{de novo}} \\
-  Finisher & GapFiller & Pilon & -- & Gapfiller &  Pilon & -- \\
-  \hline
-  rDNAs & 3 & 3 & 3 & 0 & 0 & 0\\
-  \# contigs ($\geq$ 0 bp) & 1 & 1 & 1 & 1 & 1 & 1 \\
-  Total length & 2773352 & {\bf 2781986} & 2763179 & 2768273 & 2770267 & 2752929 \\
-  Reference length & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 \\
-  GC (\%) & 32.78 & 32.80 & 32.78 & 32.72 & 32.73 & 32.71 \\
-  Reference GC (\%) & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 \\
-  Unaligned length & 20087 & {\bf 15391} & 19075 & 18980 & 16819 & 20141 \\
-  Genome fraction (\%) & 94.736 & {\bf 94.941} & 94.508 & 94.487 & 94.604 & 94.105 \\
-  Duplication ratio & 1.001 & 1.004 & {\bf 1.000} & 1.002 & 1.003 & {\bf 1.000} \\
-  \# N's per 100 kbp & 151.44 & {\bf 58.59} & 160.65 & 184.23 & 111.00 & 200.73 \\
-  Largest alignment & 403935 & {\bf 469521} & 403508 & 459120 & 459623 & 403508 \\
-  Total aligned length & 2753265 & {\bf 2766595} & 2744104 & 2749293 & 2753448 & 2732788 \\
-  NA50 & {\bf 223096} & 195659 & 222384 & 205820 & 164646 & 222384 \\
-  NGA50 & 176550 & 177158 & {\bf 222384} & 157488 & 164646 & 176039 \\
-  NA75 & 116944 & 126385 & {\bf 126952} & 88249 & 110262 & 90318 \\
-  NGA75 & 91169 & {\bf 126385} & 117538 & 80489 & 107360 & 87426 \\
-  LA50 & {\bf 5} & {\bf 5} & {\bf 5} & {\bf 5} & 6 & {\bf 5} \\
-  LGA50 & 6 & 6 & {\bf 5} & 6 & 6 & 6 \\
-  LA75 & 10 & 10 & {\bf 9} & 11 & 11 & 10 \\
-  LGA75 & 11 & {\bf 10} & {\bf 10} & 12 & 12 & 11 \\
-\end{tabular}
-\end{center}
-\end{table}
 
 \thoughtbr
 \newpage
@@ -527,10 +490,10 @@ The BugBuilder pipeline\cite{Abbott2017} was modified to include the pseudoconti
 
 \begin{table}[]
 \centering
-\caption{QUAST results of \textit{P. aeruginosa} BAMCPA07-48 assemblies comparing \textit{de fere novo} assembly, \textit{de novo} assembly, and reference-based assembly (where the \textit{P. aeruginosa} ATCC 15692 reference is included in the \textit{de novo} assembly as a trusted contig).  Blue and red highlight the best and worst results, respectively.  riboSeed's \textit{de fere novo} assembly either outperforms or performs comparably to \textit{de novo} assembly in all categories.  Using the reference as a trusted contig results in longer assemblies but with a much higher rate of missmatches, indels, and missasemblies.}
+\caption{QUAST\cite{Gurevich2013} results of \textit{P. aeruginosa} BAMCPA07-48 assemblies comparing \textit{de fere novo} assembly, \textit{de novo} assembly, and reference-based assembly (where the \textit{P. aeruginosa} ATCC 15692 reference is included in the \textit{de novo} assembly as a trusted contig).  Blue and red highlight the best and worst results, respectively.  riboSeed's \textit{de fere novo} assembly either outperforms or performs comparably to \textit{de novo} assembly in all categories.  Using the reference as a trusted contig results in longer assemblies but with a much higher rate of mismatches, indels, and misassemblies.}
 \label{table:full_ref_compare}
 \begin{tabular}{llll}
-\textbf{Genome statistics} & \textbf{\textit{de fere novo}} & \textbf{\textit{de novo}} & \textbf{reference-based} \\
+  & \textbf{\textit{de fere novo}} & \textbf{\textit{de novo}} & \textbf{reference-based} \\
 Genome fraction (\%) & \cellcolor[HTML]{CDCDF9}98.106 & \cellcolor[HTML]{FBDADA}97.868 & 98 \\
 Duplication ratio & 1.001 & 1.001 & \cellcolor[HTML]{FBDADA}1.017 \\
 Largest alignment & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{CDCDF9}757685 \\
@@ -552,6 +515,34 @@ Total length (\textgreater= 1000 bp) & 6865091 & \cellcolor[HTML]{FBDADA}6848513
 Total length (\textgreater= 10000 bp) & \cellcolor[HTML]{CDCDF9}6687664 & 6663031 & \cellcolor[HTML]{FBDADA}6617370 \\
 Total length (\textgreater= 50000 bp) & \cellcolor[HTML]{CDCDF9}6242010 & 6168232 & \cellcolor[HTML]{FBDADA}5534330
 \end{tabular}
+\end{table}
+
+
+\begin{table}[ht]
+\begin{center}
+  \caption{Assembling \textit{S. aureus} UAMS-1 with BugBuilder. We did not have access to critical information about the pipeline parameters used in the original assembly; this prevented exact recapitulation of the published results. Therefore, we approximated the settings based on notes from the publication. The performance of Pilon\cite{Walker2014a}, GapFiller\cite{Boetzer2012}, or no finishing software was assessed with both the \textit{de fere novo} and \textit{de novo} assemblies. rDNA counts were visually determined using Mauve; all other metrics were generated with QUAST, using the scaffolds from the assemblies and the \textit{S. aureus} MRSA252 reference. Misassembly/mismatch stats were removed, as the reference ans sequenced strain have an average nucleotide identity of 97.62\%, and the misassemblies cannot be differentiated from strain differences with QUAST. Blue and red highlight the best and worst results, respectively.}
+\begin{tabular}{lrrr|rrr}
+
+   & \multicolumn{3}{c}{\textbf{\textit{de fere novo}}} & \multicolumn{3}{c}{\textbf{\textit{de novo}}} \\
+   & \textbf{GapFiller} & \textbf{Pilon} & \textbf{--} & \textbf{Gapfiller} &  \textbf{Pilon} & \textbf{--} \\
+  rDNAs & \cellcolor[HTML]{CDCDF9}3 & \cellcolor[HTML]{CDCDF9}3 &\cellcolor[HTML]{CDCDF9} 3 & 0 & 0 & 0\\
+  \# contigs ($\geq$ 0 bp) & 1 & 1 & 1 & 1 & 1 & 1 \\
+  Total length & 2773352 & \cellcolor[HTML]{CDCDF9}2781986 & 2763179 & 2768273 & 2770267 & \cellcolor[HTML]{FBDADA}2752929 \\
+  Reference length & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 \\
+  GC (\%) & 32.78 & 32.80 & 32.78 & 32.72 & 32.73 & 32.71 \\
+  Reference GC (\%) & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 \\
+  Unaligned length & 20087 & \cellcolor[HTML]{CDCDF9}15391 & 19075 & 18980 & 16819 & \cellcolor[HTML]{FBDADA}20141 \\
+  Genome fraction (\%) & 94.736 & \cellcolor[HTML]{CDCDF9}94.941 & 94.508 & 94.487 & 94.604 & \cellcolor[HTML]{FBDADA}94.105 \\
+  Duplication ratio & 1.001 & 1.004 & \cellcolor[HTML]{CDCDF9}1.000 & 1.002 & 1.003 & \cellcolor[HTML]{CDCDF9}1.000 \\
+  \# N's per 100 kbp & 151.44 & \cellcolor[HTML]{CDCDF9}58.59 & 160.65 & 184.23 & 111.00 & \cellcolor[HTML]{FBDADA}200.73 \\
+  Largest alignment & 403935 & \cellcolor[HTML]{CDCDF9}469521 & \cellcolor[HTML]{FBDADA}403508 & 459120 & 459623 & \cellcolor[HTML]{FBDADA}403508 \\
+  Total aligned length & 2753265 & \cellcolor[HTML]{CDCDF9}2766595 & 2744104 & 2749293 & 2753448 & \cellcolor[HTML]{FBDADA}2732788 \\
+  NA50 & \cellcolor[HTML]{CDCDF9}223096 & 195659 & 222384 & 205820 & \cellcolor[HTML]{FBDADA}164646 & 222384 \\
+  NGA50 & 176550 & 177158 & \cellcolor[HTML]{CDCDF9}222384 &\cellcolor[HTML]{FBDADA} 157488 & 164646 & 176039 \\
+  LA50 & 5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{FBDADA}6 & \cellcolor[HTML]{CDCDF9}5 \\
+  LGA50 & 6 & 6 & \cellcolor[HTML]{CDCDF9}5 & 6 & 6 & 6 \\
+\end{tabular}
+\end{center}
 \end{table}
 
 
