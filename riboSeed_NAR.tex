@@ -109,6 +109,7 @@ Sequencing bacterial genomes has become much more cost effective and convenient,
 
   MapRepeat\cite{Mariano2015} & uses a directed scaffolding method to fill in rDNA gaps, but limited to Ion Torrent reads, and affected by inversions between rDNAs \cite{Mariano2016} \\
 
+  Pilon\cite{Walker2014a} & compares mapping files to an assembly to correct mistakes and fill gaps \\
   GRabB\cite{Brankovics2016} & selectively assembles tandem rDNAs and mitochondria\\
   \botrule
 \end{tabular*}
@@ -348,33 +349,15 @@ We find that the \textit{de fere novo} assembly using short reads performs bette
 
 \subsection*{Case Study: Closing the assembly of \textit{S. aureus} UAMS-1}
 
-% \begin{table*}[!t]
-% \centering
-%   \caption{Assembly of the \textit{S. aureus} UAMS-1}
-%   \label{table:U1}
-%   \begin{tabular}{p{5.2cm}p{.95cm}p{.75cm}p{.75cm}p{2.63cm}p{.6cm}>{\hfill}p{.4cm}p{.2cm}p{.1cm}>{\hfill}p{.4cm}p{.2cm}p{.1cm}}
-%     % \arrayrulecolor{black}
-%     \toprule
-%     \multirow{2}{*}{Sequenced Strain Name} & \multirow{2}{*}{Platform}  & \multirow{2}{*}{Length} & \multirow{2}{*}{Depth}  &  \multicolumn{2}{c}{Reference Strain} &  \multicolumn{3}{c}{\textit{de novo}} & \multicolumn{3}{c}{\textit{de fere novo}} \\
-%                             &   &   &   & Name & rDNAs  &  \textbf{$\checkmark$} & -- & $\times$ &  \textbf{\textbf{$\checkmark$}} & -- & $\times$  \\
-%                             % \cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}\cmidrule(l){4-4}\cmidrule(l){5-6}\cmidrule(l){7-9}\cmidrule(l){10-12}
-%     \colrule
-%     \textit{S.aureus} UAMS-1 & MiSeq & 300 & 110x & MRSA252  & 5 &  \textbf{0} & 5 & 0   & \textbf{2} & 3 & 0 \\
-%     \botrule
-%     \begin{minipage}[t]{.5\textwidth}
-%       {\tiny
-%         $\checkmark$ correct assembly; -- skipped assembly; $\times$ incorrect assembly
-%       }
-%     \end{minipage}
-%   \end{tabular}
-% \end{table*}
-
 \textit{Staphylococcus aureus} UAMS-1 is a well-characterized, USA200 lineage, methicillin-sensitive strain isolated from an osteomyelitis patient. The published genome was sequenced using Illumina MiSeq  (300bp reads), and the assembly refined with GapFiller as part of the BugBuilder pipeline \url{https://github.com/jamesabbott/BugBuilder}. Currently, the genome assembly is represented by two scaffolds (JTJK00000000), with several repeated regions acknowledged in the annotations\cite{Sassi2015}. As the rDNA regions were not fully characterized in the annotations, we proposed that \textit{de fere novo} assembly might resolve some of the problematic regions.
 
-Using the same reference \textit{S. aureus} MRSA252\cite{Holden2004} (BX571856.1) with riboSeed as was used in the original assembly, \textit{de fere novo} assembly correctly bridged gaps corresponding to two of the five rDNAs in the reference genome (Table \ref{table:assemblyresults}B). Furthermore, \textit{de fere novo} assembly bridged two contigs that were syntenic with the ends of the scaffolds in the published assembly, indicating that the regions resolved by riboSeed could improve closure of the genome.
+% We mapped the reads to the  MRSA252 genome and compared the depth of coverage within rDNA regions to coverage in other areas in the genome; the coverage
+
+Using the same reference \textit{S. aureus} MRSA252\cite{Holden2004} (BX571856.1) with riboSeed as was used in the original assembly, \textit{de fere novo} assembly correctly bridged gaps corresponding to three of the five rDNAs in the reference genome (Table \ref{table:assemblyresults}B). Furthermore, \textit{de fere novo} assembly bridged two contigs that were syntenic with the ends of the scaffolds in the published assembly, indicating that the regions resolved by riboSeed could improve closure of the genome.
+
+We modified the BugBuilder pipeline (\url{https://github.com/nickp60/BugBuilder}\cite{Abbott2017}) used in the published assembly to incorporate pseudocontigs from riboSeed. Further, we comparted the performance of Pilon, GapFiller, and no finishing softare with both the \textit{de fere novo} and \textit{de novo} assemblies (see supplementary data). All assemblies resulted in a single scaffold (updates to BugBuilder and many of its dependencies prevented exact recapitulation of the published assembly), but scaffolds varried in length, number of ambiguous bases, and resolution of rDNA repeats. In all cases, riboSeed's \textit{de fere novo} assemblies resulted in more rDNA regions resolved. In this case, riboSeed was able assist in bringing an existing high-quality scaffold to near closure.
 
 
-We modified the BugBuilder pipeline (\url{https://github.com/nickp60/BugBuilder}) used in the published assembly to incorporate pseudocontigs from riboSeed, resulting in a single scaffold of 7 contigs. In this case, riboSeed was able assist in bringing an existing high-quality scaffold to near closure.
 
 
 \subsection*{Benchmarking against GAGE-B Datasets}
