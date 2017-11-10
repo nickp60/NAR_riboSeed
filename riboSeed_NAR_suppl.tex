@@ -492,7 +492,7 @@ Further, MaxBin\cite{Wu2014}, Kraken, and MBBC\cite{Wang2011} also supported the
 \centering
 \caption{QUAST\cite{Gurevich2013} results of \textit{P. aeruginosa} BAMCPA07-48 assemblies comparing \textit{de fere novo} assembly, \textit{de novo} assembly, and reference-based assembly (where the \textit{P. aeruginosa} ATCC 15692 reference is included in the \textit{de novo} assembly as a trusted contig).  Blue and red highlight the best and worst results, respectively.  riboSeed's \textit{de fere novo} assembly either outperforms or performs comparably to \textit{de novo} assembly in all categories.  Using the reference as a trusted contig results in longer assemblies but with a much higher rate of mismatches, indels, and misassemblies.}
 \label{table:full_ref_compare}
-\begin{tabular}{llll}
+\begin{tabular}{lrrr}
   & \textbf{\textit{de fere novo}} & \textbf{\textit{de novo}} & \textbf{reference-based} \\
 Genome fraction (\%) & \cellcolor[HTML]{CDCDF9}98.106 & \cellcolor[HTML]{FBDADA}97.868 & 98 \\
 Duplication ratio & 1.001 & 1.001 & \cellcolor[HTML]{FBDADA}1.017 \\
@@ -500,14 +500,14 @@ Largest alignment & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{C
 Total aligned length & 6893293 & \cellcolor[HTML]{FBDADA}6876715 & \cellcolor[HTML]{CDCDF9}6993532 \\
 NGA50 & 176510 & 176510 & \cellcolor[HTML]{FBDADA}135376 \\
 LGA50 & \cellcolor[HTML]{CDCDF9}12 & 13 & \cellcolor[HTML]{FBDADA}14 \\
-\textbf{Misassemblies} &  &  &  \\
+% \textbf{Misassemblies} &  &  &  \\
 \# misassemblies & 2 & 2 & \cellcolor[HTML]{FBDADA}9 \\
 Misassembled contigs length & 212498 & 212498 & \cellcolor[HTML]{FBDADA}2347560 \\
-\textbf{Mismatches} &  &  &  \\
+% \textbf{Mismatches} &  &  &  \\
 \# mismatches per 100 kbp & 1.89 & \cellcolor[HTML]{CDCDF9}1.69 & \cellcolor[HTML]{FBDADA}11.66 \\
 \# indels per 100 kbp & 2.48 & \cellcolor[HTML]{CDCDF9}2.44 & \cellcolor[HTML]{FBDADA}2.94 \\
 \# N's per 100 kbp & 0 & 0 & 0 \\
-\textbf{Statistics without reference} &  &  &  \\
+% \textbf{Statistics without reference} &  &  &  \\
 \# contigs & \cellcolor[HTML]{CDCDF9}154 & 159 & 388 \\
 Largest contig & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{CDCDF9}1103106 \\
 Total length & 6893293 & \cellcolor[HTML]{FBDADA}6876715 & \cellcolor[HTML]{CDCDF9}7237564 \\
