@@ -201,7 +201,7 @@
 \begin{figure}[H]
     \centering
     \hspace*{0cm}\includegraphics[width=.5\textwidth]{grouped_sakai_BLAST_results}
-    \caption{BLASTn was used to perform \textit{in silico} DNA-DNA hybridization of all rDNA regions from \textit{E. coli Sakai} with variable flanking lengths. The number of hits is a proxy for occurrences in the genome; increasing the flanking length increases the specificity. (Points are jittered to aide visibility for overlapping values.)}
+    \caption{BLASTn was used to perform \textit{in silico} DNA-DNA hybridization of all rDNA regions from \textit{E. coli Sakai} with variable flanking lengths. The number of hits is a proxy for occurrences in the genome; increasing the flanking length increases the specificity. (Points are jittered to aid visibility for overlapping values.)}
     \label{fig:blast}
   \end{figure}
 
@@ -294,7 +294,7 @@
 \section*{Extended Methods}
 
 \subsection*{Reference Selection Recommendations}
-Using a close reference sequence maximizes chances of a successful assembly. We have outlined two methods to select an appropriate reference for a given isolate: a robust method, and a quick method.
+Using a recently-diverged reference sequence maximizes chances of a successful assembly. We have outlined two methods to select an appropriate reference for a given isolate: a robust method, and a quick method.
 
 \subsubsection*{Method 1: Kraken}
 
@@ -520,7 +520,7 @@ Total length (\textgreater= 50000 bp) & \cellcolor[HTML]{CDCDF9}6242010 & 616823
 
 \begin{table}[ht]
 \begin{center}
-  \caption{Assembling \textit{S. aureus} UAMS-1 with BugBuilder. We did not have access to critical information about the pipeline parameters used in the original assembly; this prevented exact recapitulation of the published results. Therefore, we approximated the settings based on notes from the publication. The performance of Pilon\cite{Walker2014a}, GapFiller\cite{Boetzer2012}, or no finishing software was assessed with both the \textit{de fere novo} and \textit{de novo} assemblies. rDNA counts were visually determined using Mauve; all other metrics were generated with QUAST, using the scaffolds from the assemblies and the \textit{S. aureus} MRSA252 reference. Misassembly/mismatch stats were removed, as the reference ans sequenced strain have an average nucleotide identity of 97.62\%, and the misassemblies cannot be differentiated from strain differences with QUAST. Blue and red highlight the best and worst results, respectively.}
+  \caption{Assembling \textit{S. aureus} UAMS-1 with BugBuilder. We did not have access to critical information about the pipeline parameters used in the original assembly; this prevented exact recapitulation of the published results. Therefore, we approximated the settings based on notes from the publication. The performance of Pilon\cite{Walker2014a}, GapFiller\cite{Boetzer2012}, or no finishing software was assessed with both the \textit{de fere novo} and \textit{de novo} assemblies. rDNA counts were visually determined using Mauve; all other metrics were generated with QUAST, using the scaffolds from the assemblies and the \textit{S. aureus} MRSA252 reference. Misassembly/mismatch stats were removed, as the reference and sequenced strain have an average nucleotide identity of 97.62\%, and the misassemblies cannot be differentiated from strain differences with QUAST. Blue and red highlight the best and worst results, respectively.}
 \begin{tabular}{lrrr|rrr}
 
    & \multicolumn{3}{c}{\textbf{\textit{de fere novo}}} & \multicolumn{3}{c}{\textbf{\textit{de novo}}} \\
