@@ -350,13 +350,13 @@ We find that the \textit{de fere novo} assembly using short reads performs bette
 
 \subsection*{Case Study: Closing the assembly of \textit{S. aureus} UAMS-1}
 
-\textit{Staphylococcus aureus} UAMS-1 is a well-characterized, USA200 lineage, methicillin-sensitive strain isolated from an osteomyelitis patient. The published genome was sequenced using Illumina MiSeq  (300bp reads), and the assembly refined with GapFiller as part of the BugBuilder pipeline \url{https://github.com/jamesabbott/BugBuilder}. Currently, the genome assembly is represented by two scaffolds (JTJK00000000), with several repeated regions acknowledged in the annotations \cite{Sassi2015}. As the rDNA regions were not fully characterized in the annotations, we proposed that \textit{de fere novo} assembly might resolve some of the problematic regions.
+\textit{Staphylococcus aureus} UAMS-1 is a well-characterized, USA200 lineage, methicillin-sensitive strain isolated from an osteomyelitis patient. The published genome was sequenced using Illumina MiSeq  (300bp reads), and the assembly refined with GapFiller as part of the BugBuilder pipeline \url{http://www.imperial.ac.uk/bioinformatics-data-science-group/resources/software/bugbuilder/}. Currently, the genome assembly is represented by two scaffolds (JTJK00000000), with several repeated regions acknowledged in the annotations \cite{Sassi2015}. As the rDNA regions were not fully characterized in the annotations, we proposed that \textit{de fere novo} assembly might resolve some of the problematic regions.
 
 % We mapped the reads to the  MRSA252 genome and compared the depth of coverage within rDNA regions to coverage in other areas in the genome; the coverage
 
 Using the same reference \textit{S. aureus} MRSA252 \cite{Holden2004} (BX571856.1) with riboSeed as was used in the original assembly, \textit{de fere novo} assembly correctly bridged gaps corresponding to three of the five rDNAs in the reference genome (Table \ref{table:assemblyresults}B). Furthermore, \textit{de fere novo} assembly bridged two contigs that were syntenic with the ends of the scaffolds in the published assembly, indicating that the regions resolved by riboSeed could improve closure of the genome.
 
-We modified the BugBuilder pipeline (\url{https://github.com/nickp60/BugBuilder} \cite{Abbott2017}) used in the published assembly to incorporate pseudocontigs from riboSeed. Further, we compared the performance of Pilon, GapFiller, and no finishing software with both the \textit{de fere novo} and \textit{de novo} assemblies (see Table S6). All assemblies resulted in a single scaffold (updates to BugBuilder and many of its dependencies prevented exact recapitulation of the published assembly), but scaffolds varied in length, number of ambiguous bases, and resolution of rDNA repeats. In all cases, riboSeed's \textit{de fere novo} assemblies resulted in more rDNA regions resolved. In this case, riboSeed was able assist in bringing an existing high-quality scaffold to near closure.
+We modified the BugBuilder pipeline (\url{https://github.com/nickp60/BugBuilder}) used in the published assembly to incorporate pseudocontigs from riboSeed. Further, we compared the performance of Pilon, GapFiller, and no finishing software with both the \textit{de fere novo} and \textit{de novo} assemblies (see Table S6). All assemblies resulted in a single scaffold (updates to BugBuilder and many of its dependencies prevented exact recapitulation of the published assembly), but scaffolds varied in length, number of ambiguous bases, and resolution of rDNA repeats. In all cases, riboSeed's \textit{de fere novo} assemblies resulted in more rDNA regions resolved. In this case, riboSeed was able to assist in bringing an existing high-quality scaffold to near closure.
 
 
 
@@ -445,7 +445,7 @@ The work was supported by a joint studentship between The James Hutton Institute
 
 
 \section{ACKNOWLEDGEMENTS}
-We thank Anton Korobeynikov for his recommendations on optimizing SPAdes. Yoann Augagneur, Shaun Brinsmade, and Mohamed Sassi graciously provided access to the \textit{S. aureus} UAMS-1 genome sequencing data.  Additional computational resources were provided by CLIMB \cite{Connor2016}. We thank the Bioconda \citey{Dale2017} community for their support.
+We thank Anton Korobeynikov for his recommendations on optimizing SPAdes. Yoann Augagneur, Shaun Brinsmade, and Mohamed Sassi graciously provided access to the \textit{S. aureus} UAMS-1 genome sequencing data.  Additional computational resources were provided by CLIMB \cite{Connor2016}. We thank the Bioconda (\url{https://bioconda.github.io/}) community for their support.
 
 
 \subsection{Conflict of interest statement.}
