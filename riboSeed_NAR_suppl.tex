@@ -4,7 +4,7 @@
 % May there be many tasty snails in pufferfish heaven
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[10pt]{article}
-
+\includeonly{supp_tex/tablephyla}
 \usepackage{geometry}
 \geometry{marginparwidth=1cm,a4paper,verbose,tmargin=1.5cm,bmargin=1.5cm,lmargin=1.5cm,rmargin=1.5cm,headheight=0cm,headsep=0cm,footskip=0cm}
 \usepackage{cite}
@@ -15,6 +15,7 @@
 
 \bibliographystyle{plain} % citation and bib style
 \usepackage{grffile} %for underscores in file names
+\usepackage{rotating} % for sideways tables
 \usepackage[ruled]{algorithm2e} % for typesetting the riboSeed algorithm
 \setlength{\algotitleheightrule}{0pt}
 \usepackage{lineno, color} % controls line numbering
@@ -119,175 +120,10 @@
 
 \beginsupplement
 
-\SetKwProg{Scan}{riboScan}{ }{end}
-\SetKwProg{Select}{riboSelect}{ }{end}
-\SetKwProg{Seed}{riboSeed}{ }{end}
-\begin{figure}[h]
-  \centering
-  \begin{minipage}{.6\linewidth}
-    \begin{algorithm}[H]
-      % \KwData{reference, reads}
-      %  % initialization\;
-      % \Scan{(reference fastas)}{
-      % \For{chromosome in reference}{
-      % run Barrnap to find rRNAs\;
-      % add locus tags to gff\;
-      % convert to genbank\;
-      % }
-      %   combine genbanks\;
-      %   return scannedScaffolds\;
-      % }
-      %   \hrule
-      % % \end{algorithm}
-      % % \pagebreak
-      % % \begin{algorithm}[H]
-      %   \Select{(scannedScaffolds)}{
-      %   parse coordinated of rRNAs\;
-      %   cluster into operons\;
-      %   return grouped\_loci\;
-      % }
-      %   \hrule
-      % \end{algorithm}
-      % \pagebreak
-      % \begin{algorithm}[H]
-      %   \Seed{(scannedScaffolds, grouped\_loci, reads, iters)}{
-      %   reference = scannedScaffolds\;
-      %   clusters = parse grouped\_loci\;
-      %   \For{i in iters}{
-      %   map reads to reference\;
-      %   \For{cluster in clusters}{
-      %   filter and extract reads within clusters and flanking\;
-      %   subassemble with SPAdes\;
-      %   return pseudocontig\;
-      % }
-      %   assess subassembly\;
-      %   \If {success}{
-      %   make fauxgenome from pseudocontigs \;
-      %   reference = fauxgenome
-      %   continue
-      % }
-      %   \If{last iteration}{
-      %   run SPAdes with pseudocontigs\;
-      % }
-      % }
-      % }
-      \Seed{(reference, riboSelect\_clusters, reads, iters, flanking\_width)}{
-        ref = reference\;
-        clusters = parse riboSelect\_clusters\;
-        region = clusters + flanking\_width\;
-        \For{i in iters}{
-          map reads to ref\;
-          \For{cluster in clusters}{
-            filter and extract reads region\;
-            subassemble\;
-            return pseudocontig\;
-          }
-          assess subassembly\;
-          \If {success}{
-            make pseudogenome from pseudocontigs \;
-            ref = pseudogenome \;
-          }
-        }
-        run assembler with reads and pseudocontigs\;
-      }
-    \end{algorithm}
-  \end{minipage}
-  \caption{Pseudocode of riboSeed algorithm}
-  \label{fig:algo}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 5
 
 
-\begin{figure}[H]
-    \centering
-    \hspace*{0cm}\includegraphics[width=.5\textwidth]{grouped_sakai_BLAST_results}
-    \caption{BLASTn was used to perform \textit{in silico} DNA-DNA hybridization of all rDNA regions from \textit{E. coli Sakai} with variable flanking lengths. The number of hits is a proxy for occurrences in the genome; increasing the flanking length increases the specificity. (Points are jittered to aid visibility for overlapping values.)}
-    \label{fig:blast}
-  \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \hspace*{0cm}\includegraphics[width=.60\textwidth]{simulated_genome}
-    \caption{Assembly of artificial genome. \textit{De fere novo} results in closure of 3-5 rDNAs with the correct reference; only 1-2 rDNAs are correctly assembled using \textit{K. pneumoniae}.  No rDNAs are assembled with \textit{de novo} assembly. Scored with riboScore.py. N=8.}
-    \label{fig:simgenome}
-\end{figure}
-
-
-\begin{figure}[H]
-  \centering
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_000913.3_entropy_plot}
-    \caption{\textit{E. coli MG1655} (NC\_000913.3)}
-    \label{fig:ent_coli}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/CP003200.1_entropy_plot}
-    \caption{\textit{K. pneumoniae subsp. pneumoniae HS11286} (CP003200.1) }
-    \label{fig:ent_pneumo}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NZ_CP017149.1_entropy_plot}
-    \caption{\textit{P. aeruginosa strain ATCC 15692} (NZ\_CP017149.1)}
-    \label{fig:ent_pao}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_008570.1_entropy_plot}
-    \caption{\textit{A. hydrophila ATCC 7966} (NC\_008570.1)}
-    \label{fig:ent_aero}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/AE017194.1_entropy_plot}
-    \caption{\textit{B. cereus ATCC 10987} (AE017194.1)}
-    \label{fig:ent_cereus_atcc}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_016771.1_entropy_plot}
-    \caption{\textit{B. cereus NC7401} (NC\_016771.1)}
-    \label{fig:ent_cereus_nc}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/FQ312004.1_entropy_plot}
-    \caption{\textit{B. fragilis 638R} (FQ312004.1)}
-    \label{fig:ent_frag}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_009050.1_entropy_plot}
-    \caption{\textit{R. sphaeroides  ATCC 17029} (NC\_009049.1, NC\_009050.1)}
-    \label{fig:ent_rhodo}
-  \end{subfigure}
-\end{figure}
-\begin{figure}
-  \centering
-  \ContinuedFloat
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_010079.1_entropy_plot}
-    \caption{\textit{S. aureus TCH1516} (NC\_010079.1)}
-    \label{fig:ent_tch}
-  \end{subfigure}
-  % \begin{subfigure}[b]{.45\textwidth}
-  %   \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_007795.1_entropy_plot}
-  %   \caption{\textit{S. aureus NCTC 8325} (NC\_007795.1)}
-  %   \label{fig:ent_nctc}
-  % \end{subfigure}
-  % \begin{subfigure}[b]{.45\textwidth}
-  %   \includegraphics[width=0.95\textwidth]{gage_entropy_figures/AP014942.1_entropy_plot}
-  % \caption{\textit{S. aureus FDA209P} (AP014942.1)}
-  % \label{fig:entfda}
-  % \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/NC_002506.1_entropy_plot}
-    \caption{\textit{V. cholerae El Tor str. N16961} (NC\_002505.1) (NC\_002506.1)}
-    \label{fig:ent_vib}
-  \end{subfigure}
-  \begin{subfigure}[b]{.45\textwidth}
-    \includegraphics[width=0.95\textwidth]{gage_entropy_figures/CP002914.1_entropy_plot}
-    \caption{\textit{X. axonopodis pv. Citrumelo} (CP002914.1)}
-  \end{subfigure}
-  \caption{riboScan.py,riboSelect.py, and riboSnag.py were run on all the genomes used as references for \textit{de fere novo} assemblies. Consensus alignment depth (grey bars) and Shannon entropy (black points, smoothed entropy as red line) for aligned rDNA regions.}
-  \label{fig:ent_gage}
-
-\end{figure}
-
+\include{supp_tex/figsgage}
 \pagebreak
 
 
@@ -315,16 +151,28 @@ The artificial genome used for testing was constructed using the \texttt{makeToy
 \subsection*{Effect of reference sequence identity on riboSeed performance}
 The following range of substitutions were introduced into a artificial genome using the \texttt{runDegenerate.sh} script (included in the GitHub repository under the \textbf{\texttt{scripts}} directory), which facilitates the following procedure: 0.0, 0.0025, 0.0050, 0.0075, 0.0100, 0.0150, 0.0200, 0.0250, 0.0500, 0.0750, 0.1000, 0.1250, 0.1500, 0.1750, 0.2000, 0.2250, 0.2500, 0.2750, 0.3000. An artificial test genome is constructed (see above), and reads simulated using pIRS (100bp, 300bp inserts, stdev 10, 30-fold coverage, built-in error profile).  Then, for each of a range of substitution frequencies, substitutions are introduced into the simulated genome, either just in the flanking regions or uniformly throughout. riboSeed is run on the reads using the mutated genome as the reference, and the results are evaluated with riboScore. This script was run 100 times, using a different random seed each time.  As pseudo random number generation may differ between operating systems, comparable but not identical results can be expected.
 
-\section*{Performance on Archaeal Data}
+\section*{Performance Across Prokaryotic Phyla}
+\subsection*{Performance on Archaeal Data}
 
-We assessed the effectiveness of riboSeed in assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, our ability to benchmark was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (Illumina HiSeq 2000, 100bp paired-end reads) and \textit{Methanobacterium formicicum st. JCM10132} (DRR017790, Ion Torrent PGM, 89bp single-end reads). \textit{Methanobacterium formicicum st. BRM9} and \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) were the only ones that were suitable for riboSeed, in that there was both publicly available short read data and that there is a complete reference genome at the species level.
-
-\textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of single-end data. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. While riboSeed with default parameters did not resolve any of the assembly gaps (final assembly \textit{k}-mers 21, 33, 55, and 77), re-running the final assembly with \textit{k}-mers of 21, 33, 55, 77, and 99 resulted in closing 2 of 2 rDNA gaps. We are unsure why the addition of 99-mers improved assembly with 89-bp reads, but we are actively investigating this. This represents the first application of riboSeed to Ion Torrent data.
-
+We assessed the effectiveness of riboSeed in assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, our ability to benchmark was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) and \textit{Methanobacterium formicicum st. JCM10132} (DRR017790).\textit{Methanosarcina barkeri Fusaro DSMZ804} and  \textit{Methanobacterium formicicum st. BRM9}  were the only ones that were suitable for riboSeed, in that there was publicly available short read data, more than a single rDNA operon, and an appropriate complete reference genome at the species level.
 
 \textit{Methanosarcina barkeri Fusaro DSMZ804} was sequenced using an Illumina HiSeq2000 with 101bp paired-end reads, with an average fragment length of 400bp. We downsampled to use 5\% of the 19.4Gbp dataset with seqtk (\href{https://github.com/lh3/seqtk}{https://github.com/lh3/seqtk}). \textit{Methanosarcina barkeri str. Wiesmoor} (CP009526.1) was used as a reference. The resulting riboSeed assembly showed correct assembly of 3 of 3 rDNAs, while \textit{de novo} assemble failed to resolve any.
 
+\textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of 89bp single-end reads. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. While riboSeed with default parameters did not resolve any of the assembly gaps (final assembly \textit{k}-mers 21, 33, 55, and 77), re-running the final assembly with \textit{k}-mers of 21, 33, 55, 77, and 99 resulted in closing 2 of 2 rDNA gaps. We are unsure why the addition of 99-mers improved assembly with 89-bp reads, but we are actively investigating this. This represents the first application of riboSeed to Ion Torrent data.
+
 Taken together, we show that given appropriate datasets and parameters, archaeal datasets can be processed in the same manner used for bacteria.
+
+\subsection*{Performance Across Bacterial Phyla}
+In order to assess riboSeed's wider applicability, we selected additional datasets representing major bacterial phyla for those not already present in our analysis. In all cases, riboSeed improved the assemblies compared to the \textit{de novo} with no missassemblies introduced (Table \ref{table:phyla}). Thus, riboSeed can be applied to a wide range of organisms.
+
+
+\include{supp_tex/tablephyla}
+
+
+\section*{Atypical rDNA operon structure}
+In the course of this study, we observed some taxa lacking the typical 16S-23S-5S rRNA operon.  While strains commonly exibit multiple 5S rRNAs
+
+
 
 
 \section*{Key Parameters}
@@ -343,32 +191,7 @@ Further, if the user wishes to explicitly define the behaviour, \texttt{trusted}
 By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If needed, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be advantageous when assembling a low coverage dataset.
 
 \section*{Excluding GAGE-B HiSeq \textit{B. cereus}}
-
-\begin{figure}[H]
-  \centering
-  \begin{subfigure}[b]{.5\textwidth}
-    \includegraphics[width=.95\textwidth]{all.blobDB.json.bestsum.species.p7.span.100.blobplot.spades.png}
-    \caption{All reads}
-  \end{subfigure}
-  \begin{subfigure}[b]{.5\textwidth}
-    \includegraphics[width=.95\textwidth]{mapped.blobDB.json.bestsum.species.p7.span.100.blobplot.spades.png}
-    \caption{Reads aligning to reference}
-  \end{subfigure}
-  \begin{subfigure}[b]{.5\textwidth}
-    \includegraphics[width=.95\textwidth]{unmapped.blobDB.json.bestsum.species.p7.span.100.blobplot.spades.png}
-    \caption{Reads failing to align to reference}
-  \end{subfigure}
-  \caption{Assessing contamination in the GAGE-B HiSeq \textit{B. cereus} dataset with blobtools. Reads were assembled with metaSPAdes, taxanomically assigned with BLASTn against the nt database, and plotted with blobtools.  (A) shows the whole dataset, while (B) and (C) shows the portion of the reads aligning to the \textit{B. cereus} ATCC 10987 reference and those failing to align, respectively.}
-  \label{fig:contamination_all}
-\end{figure}
-
-The GAGE-B paper \cite{Magoc2013} notes that the \textit{B. cereus} HiSeq dataset proved particularly difficult to assemble. After noticing this irregularity, we re-assembled the trimmed reads downloaded from the GAGE-B website with metaSPAdes \cite{Nurk2017}  using default parameters.  Then, blastn was used to search the resulting contigs against NCBI's nt database (May, 2017) to get a list of hits according to the blobtools \cite{Laetsch2017a} specifications. Blobtools was then used to plot the hit coverage, taxonomy, and GC-content of the contigs.  This revealed what appears to be a contamination. \ref{fig:contamination_all}A. As the GC content of the contaminating organisms did not differ from \textit{B. cereus}, we believe that many tools that use GC-skew to detect contamination would not have detected the problem with this dataset.
-
-
-To further show the contamination, we split reads into those read pairs mapping to the \textit{B. cereus} ATCC 10987 reference genome and those unmapped.  BWA MEM \cite{Li2013} was used to map the 12039737 reads to the reference genome;  samtools was used to separate the 7500534 reads (62\%) that mapped from the 3984200 reads (33\%) that failed to map with default parameters\footnote{The remaining \ttilde5 \% are those pairs where only one read aligned to the reference; these were ignored for this analysis.}.Each of these sets of reads was then assembled, BLASTed against the nt database, and plotted with blobtools \ref{fig:contamination_all}B and C.
-
-
-Further, MaxBin \cite{Wu2014}, Kraken, and MBBC \cite{Wang2011} also supported the hypothesis that the sample is contaminated with approximately one third of reads originating from a non-\textit{B. cereus} strain.
+\include{supp_tex/figscereus}
 
 \thoughtbr
 \newpage
