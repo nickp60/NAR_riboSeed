@@ -1,0 +1,23 @@
+\section*{Extended Methods}
+
+\subsection*{Reference Selection Recommendations}
+Using a recently-diverged reference sequence maximizes chances of a successful assembly. We have outlined two methods to select an appropriate reference for a given isolate: a robust method, and a quick method.
+
+\subsubsection*{Method 1: Kraken}
+
+Kraken \cite{Wood2014} is a \textit{k}-mer-based phylogeny tool that can be used to identify the strains present in a metagenomic dataset; installation and usage instructions can be found here: \href{https://ccb.jhu.edu/software/kraken/}{https://ccb.jhu.edu/software/kraken/}. After downloading and installing Kraken, along with the MiniKraken database from their website, Kraken can be run on an isolate's reads, generating the a taxonomy report.
+
+The MiniKraken database was built from all the complete genomes from RefSeq, allowing the user to identify which strain in the database has the closest match to the sequenced isolate.
+
+\subsubsection*{Method 2: Reads2Type and  cgFind}
+Reads2Type \cite{Saputra2015} is also a \textit{k}-mer-based phylogeny tool, but it relies on a lightweight, prebuilt database of 55-mers from a set of reference strains. This allows the analysis to be performed in the web browser, and it does not require the user to upload complete read files, allowing it to perform well when either speed or network access is limited.  It works by taking one read at a time from the input file, generating 55-mers, and comparing to a prebuilt database. If there is not enough resolution information to identify the isolate by that read alone, additional reads are processed until a single taxonomy identification is achieved.  This method works best on trimmed reads. Instructions and the webserver can be found at \href{https://cge.cbs.dtu.dk/services/Reads2Type/}{https://cge.cbs.dtu.dk/services/Reads2Type/}
+
+Given the genus and species from Reads2Type, users can make use of cgFind, a web tool we developed to provide easy access to downloadable genomes based on the complete prokaryotic genomes found in NCBI. The tool can be found at \href{https://nickp60.github.io/cgfind}{https://nickp60.github.io/cgfind}.
+
+
+\subsection*{Making the artificial test genome}
+The artificial genome used for testing was constructed using the \texttt{makeToyGenome.sh} script included in the GitHub repository (\url{https://github.com/nickp60/riboSeed}) under the \textbf{\texttt{scripts}} directory. Briefly, the 7 rDNA regions from the \coli{Sakai} genome were extracted with 5kb flanking sequence upstream and downstream; these sequences were then concatenated end to end to form a single, \ttilde100kb sequence containing the 7 rDNAs as well as their flanking context.
+
+
+\subsection*{Effect of reference sequence identity on riboSeed performance}
+The following range of substitutions were introduced into a artificial genome using the \texttt{runDegenerate.sh} script (included in the GitHub repository under the \textbf{\texttt{scripts}} directory), which facilitates the following procedure: 0.0, 0.0025, 0.0050, 0.0075, 0.0100, 0.0150, 0.0200, 0.0250, 0.0500, 0.0750, 0.1000, 0.1250, 0.1500, 0.1750, 0.2000, 0.2250, 0.2500, 0.2750, 0.3000. An artificial test genome is constructed (see above), and reads simulated using pIRS (100bp, 300bp inserts, stdev 10, 30-fold coverage, built-in error profile).  Then, for each of a range of substitution frequencies, substitutions are introduced into the simulated genome, either just in the flanking regions or uniformly throughout. riboSeed is run on the reads using the mutated genome as the reference, and the results are evaluated with riboScore. This script was run 100 times, using a different random seed each time.  As pseudo random number generation may differ between operating systems, comparable but not identical results can be expected.

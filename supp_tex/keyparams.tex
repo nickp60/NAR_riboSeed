@@ -1,0 +1,14 @@
+\section*{Key Parameters}
+\subsection*{\texttt{--ref\_as\_contig}}
+The assembly that results from including riboSeed's ``long reads'' is sensitive to the manner in which they are incorporated into the \textit{de novo} assembly. Here, for our analyses, we used the SPAdes assembler \cite{Bankevich2012}, as it has built-in ways to include contigs (using the ``--trusted-contigs'' or ``--untrusted-contigs'') in FASTA format.  Other assemblers could be used, but most require long reads to have a quality score associate with them, preventing direct use of riboSeeds long reads.
+
+As mentioned in the Methods section, riboSeed uses the reference rDNA region in the initial subassembly;  in subsequent subassemblies, the longest contig of the previous subsassembly is used.  These regions can be treated one of four ways using the \texttt{--ref\_as\_contig} argument: \texttt{trusted}, \texttt{untrusted}, \texttt{infer}, or \texttt{ignore}.  Additionally, if the user is worried that the reference rDNA will too heavily influence the initial subassembly, they can enable the \texttt{--initial\_consensus} flag to use a mapping consensus assembly instead of the de Bruijn graph based assembly from SPAdes.
+
+The default manner in which rDNA regions (either from the reference or from the previous iteration's subassembly) behaviour is to infer (\texttt{--ref\_as\_contig infer}): if the percent of reads mapping to  the (whole) reference sequence  is over 80\%, than the rDNA region will be included as a trusted contig.  If below 80\%, the reads will be treated as untrusted.
+
+If a user wishes to have the subassemblies only using the reads (true \textit{de novo} assembly), they can use the \texttt{ignore} option.  We only recommend this with very close references.
+
+Further, if the user wishes to explicitly define the behaviour, \texttt{trusted} or \texttt{untrusted} can be provided to the \texttt{--ref\_as\_contig} argument.
+
+\subsection*{\texttt{--score\_min}}
+By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If needed, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be advantageous when assembling a low coverage dataset.

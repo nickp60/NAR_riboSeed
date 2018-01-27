@@ -4,7 +4,7 @@
 % May there be many tasty snails in pufferfish heaven
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[10pt]{article}
-\includeonly{supp_tex/tablephyla}
+% \includeonly{supp_tex/figsgage}
 \usepackage{geometry}
 \geometry{marginparwidth=1cm,a4paper,verbose,tmargin=1.5cm,bmargin=1.5cm,lmargin=1.5cm,rmargin=1.5cm,headheight=0cm,headsep=0cm,footskip=0cm}
 \usepackage{cite}
@@ -27,6 +27,7 @@
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 \usepackage{multirow} % for some pretty tables with merged cells
 \usepackage[table,xcdraw]{xcolor} % for cool table cell colors
+\usepackage{tikz}  % just so I can use \foreach
 % my lined-off abstract
 \newenvironment{myabstract}{%
 \begin{quote} \baselineskip14pt \rule{.89\textwidth}{1.5pt} \vskip .1cm}
@@ -120,81 +121,12 @@
 
 \beginsupplement
 
-
-
-
 \include{supp_tex/figsgage}
-\pagebreak
-
-
-\section*{Extended Methods}
-
-\subsection*{Reference Selection Recommendations}
-Using a recently-diverged reference sequence maximizes chances of a successful assembly. We have outlined two methods to select an appropriate reference for a given isolate: a robust method, and a quick method.
-
-\subsubsection*{Method 1: Kraken}
-
-Kraken \cite{Wood2014} is a \textit{k}-mer-based phylogeny tool that can be used to identify the strains present in a metagenomic dataset; installation and usage instructions can be found here: \href{https://ccb.jhu.edu/software/kraken/}{https://ccb.jhu.edu/software/kraken/}. After downloading and installing Kraken, along with the MiniKraken database from their website, Kraken can be run on an isolate's reads, generating the a taxonomy report.
-
-The MiniKraken database was built from all the complete genomes from RefSeq, allowing the user to identify which strain in the database has the closest match to the sequenced isolate.
-
-\subsubsection*{Method 2: Reads2Type and  cgFind}
-Reads2Type \cite{Saputra2015} is also a \textit{k}-mer-based phylogeny tool, but it relies on a lightweight, prebuilt database of 55-mers from a set of reference strains. This allows the analysis to be performed in the web browser, and it does not require the user to upload complete read files, allowing it to perform well when either speed or network access is limited.  It works by taking one read at a time from the input file, generating 55-mers, and comparing to a prebuilt database. If there is not enough resolution information to identify the isolate by that read alone, additional reads are processed until a single taxonomy identification is achieved.  This method works best on trimmed reads. Instructions and the webserver can be found at \href{https://cge.cbs.dtu.dk/services/Reads2Type/}{https://cge.cbs.dtu.dk/services/Reads2Type/}
-
-Given the genus and species from Reads2Type, users can make use of cgFind, a web tool we developed to provide easy access to downloadable genomes based on the complete prokaryotic genomes found in NCBI. The tool can be found at \href{https://nickp60.github.io/cgfind}{https://nickp60.github.io/cgfind}.
-
-
-\subsection*{Making the artificial test genome}
-The artificial genome used for testing was constructed using the \texttt{makeToyGenome.sh} script included in the GitHub repository (\url{https://github.com/nickp60/riboSeed}) under the \textbf{\texttt{scripts}} directory. Briefly, the 7 rDNA regions from the \coli{Sakai} genome were extracted with 5kb flanking sequence upstream and downstream; these sequences were then concatenated end to end to form a single, \ttilde100kb sequence containing the 7 rDNAs as well as their flanking context.
-
-
-\subsection*{Effect of reference sequence identity on riboSeed performance}
-The following range of substitutions were introduced into a artificial genome using the \texttt{runDegenerate.sh} script (included in the GitHub repository under the \textbf{\texttt{scripts}} directory), which facilitates the following procedure: 0.0, 0.0025, 0.0050, 0.0075, 0.0100, 0.0150, 0.0200, 0.0250, 0.0500, 0.0750, 0.1000, 0.1250, 0.1500, 0.1750, 0.2000, 0.2250, 0.2500, 0.2750, 0.3000. An artificial test genome is constructed (see above), and reads simulated using pIRS (100bp, 300bp inserts, stdev 10, 30-fold coverage, built-in error profile).  Then, for each of a range of substitution frequencies, substitutions are introduced into the simulated genome, either just in the flanking regions or uniformly throughout. riboSeed is run on the reads using the mutated genome as the reference, and the results are evaluated with riboScore. This script was run 100 times, using a different random seed each time.  As pseudo random number generation may differ between operating systems, comparable but not identical results can be expected.
-
-\section*{Performance Across Prokaryotic Phyla}
-\subsection*{Performance on Archaeal Data}
-
-We assessed the effectiveness of riboSeed in assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, our ability to benchmark was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) and \textit{Methanobacterium formicicum st. JCM10132} (DRR017790).\textit{Methanosarcina barkeri Fusaro DSMZ804} and  \textit{Methanobacterium formicicum st. BRM9}  were the only ones that were suitable for riboSeed, in that there was publicly available short read data, more than a single rDNA operon, and an appropriate complete reference genome at the species level.
-
-\textit{Methanosarcina barkeri Fusaro DSMZ804} was sequenced using an Illumina HiSeq2000 with 101bp paired-end reads, with an average fragment length of 400bp. We downsampled to use 5\% of the 19.4Gbp dataset with seqtk (\href{https://github.com/lh3/seqtk}{https://github.com/lh3/seqtk}). \textit{Methanosarcina barkeri str. Wiesmoor} (CP009526.1) was used as a reference. The resulting riboSeed assembly showed correct assembly of 3 of 3 rDNAs, while \textit{de novo} assemble failed to resolve any.
-
-\textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of 89bp single-end reads. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. While riboSeed with default parameters did not resolve any of the assembly gaps (final assembly \textit{k}-mers 21, 33, 55, and 77), re-running the final assembly with \textit{k}-mers of 21, 33, 55, 77, and 99 resulted in closing 2 of 2 rDNA gaps. We are unsure why the addition of 99-mers improved assembly with 89-bp reads, but we are actively investigating this. This represents the first application of riboSeed to Ion Torrent data.
-
-Taken together, we show that given appropriate datasets and parameters, archaeal datasets can be processed in the same manner used for bacteria.
-
-\subsection*{Performance Across Bacterial Phyla}
-In order to assess riboSeed's wider applicability, we selected additional datasets representing major bacterial phyla for those not already present in our analysis. In all cases, riboSeed improved the assemblies compared to the \textit{de novo} with no missassemblies introduced (Table \ref{table:phyla}). Thus, riboSeed can be applied to a wide range of organisms.
-
-
-\include{supp_tex/tablephyla}
-
-
-\section*{Atypical rDNA operon structure}
-In the course of this study, we observed some taxa lacking the typical 16S-23S-5S rRNA operon.  While strains commonly exibit multiple 5S rRNAs
-
-
-
-
-\section*{Key Parameters}
-\subsection*{\texttt{--ref\_as\_contig}}
-The assembly that results from including riboSeed's ``long reads'' is sensitive to the manner in which they are incorporated into the \textit{de novo} assembly. Here, for our analyses, we used the SPAdes assembler \cite{Bankevich2012}, as it has built-in ways to include contigs (using the ``--trusted-contigs'' or ``--untrusted-contigs'') in FASTA format.  Other assemblers could be used, but most require long reads to have a quality score associate with them, preventing direct use of riboSeeds long reads.
-
-As mentioned in the Methods section, riboSeed uses the reference rDNA region in the initial subassembly;  in subsequent subassemblies, the longest contig of the previous subsassembly is used.  These regions can be treated one of four ways using the \texttt{--ref\_as\_contig} argument: \texttt{trusted}, \texttt{untrusted}, \texttt{infer}, or \texttt{ignore}.  Additionally, if the user is worried that the reference rDNA will too heavily influence the initial subassembly, they can enable the \texttt{--initial\_consensus} flag to use a mapping consensus assembly instead of the de Bruijn graph based assembly from SPAdes.
-
-The default manner in which rDNA regions (either from the reference or from the previous iteration's subassembly) behaviour is to infer (\texttt{--ref\_as\_contig infer}): if the percent of reads mapping to  the (whole) reference sequence  is over 80\%, than the rDNA region will be included as a trusted contig.  If below 80\%, the reads will be treated as untrusted.
-
-If a user wishes to have the subassemblies only using the reads (true \textit{de novo} assembly), they can use the \texttt{ignore} option.  We only recommend this with very close references.
-
-Further, if the user wishes to explicitly define the behaviour, \texttt{trusted} or \texttt{untrusted} can be provided to the \texttt{--ref\_as\_contig} argument.
-
-\subsection*{\texttt{--score\_min}}
-By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the read length.  If needed, this can be increased for greater stringency when dealing with more divergent references, or decreased to include more reads, which may be advantageous when assembling a low coverage dataset.
-
-\section*{Excluding GAGE-B HiSeq \textit{B. cereus}}
+\include{supp_tex/extendedmethods}
+\include{supp_tex/phylaperformance}
+\include{supp_tex/atypical}
+\include{supp_tex/keyparams}
 \include{supp_tex/figscereus}
-
-\thoughtbr
-\newpage
 
 \begin{table}[]
   \centering
@@ -220,7 +152,7 @@ By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}[!h]
 \centering
-\caption{Accessions for 25 \textit{E. coli} genomes}
+\caption{Accessions for 25 \textit{E. coli} genomes used to calculate substitution rate}
 \label{table:accessions}
 \begin{tabular}{l}
   \toprule
@@ -261,7 +193,7 @@ By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the re
 
 \begin{table}[]
 \centering
-\caption{Strain names and accessions for reference genomes used in this study}
+\caption{Strain names and accessions for reference genomes used in this study.For the full list, which includes strains used in the supplementary data, SRA accession numbers for reads, and more, please consult the supplementary file ``strain\_metadata.tab''}.
 \label{table:strainlist}
 \begin{tabular}{ll}
   \toprule
@@ -273,17 +205,15 @@ By default, the accepted alignment score for BWA mapping is $\frac{1}{2}$ the re
   \textit{B. cereus ATCC 10987} & AE017194.1 \\
   \textit{B. cereus NC7401} & NC\_016771.1 \\
   \textit{B. fragilis 638R} & FQ312004.1 \\
+  \textit{K. pneumoniae} & CP003200.1\\
   \textit{R. sphaeroides ATCC 17029} & NC\_009049.1, NC\_009050.1 \\
   \textit{S. aureus TCH1516} & NC\_010079.1 \\
-  % \textit{S. aureus NCTC 8325} & NC\_007795.1 \\
-  % \textit{S. aureus FDA209P} & AP014942.1 \\
   \textit{S. aureus MRSA252} & BX571856.1 \\
   \textit{V. cholerae El Tor str. N16961} & NC\_002505.1, NC\_002506.1 \\
   \textit{X. axonopodis pv. Citrumelo} & CP002914.1 \\
   \textit{P. aeruginosa BAMCPA07-48} & CP015377.1 \\
   \textit{P. aeruginosa ATCC 15692} & NZ\_CP017149.1\\
   \bottomrule
-
 \end{tabular}
 \end{table}
 
