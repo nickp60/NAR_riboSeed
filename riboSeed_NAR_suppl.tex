@@ -8,6 +8,7 @@
 \usepackage{geometry}
 \geometry{marginparwidth=1cm,a4paper,verbose,tmargin=1.5cm,bmargin=1.5cm,lmargin=1.5cm,rmargin=1.5cm,headheight=0cm,headsep=0cm,footskip=0cm}
 \usepackage{cite}
+% \usepackage{ifthen}  % for plotting lots of figures in loops with conditionals
 \usepackage{float}  % for forcing figures to stay put
 \usepackage{hyperref} % make the references clickable
 \setlength\parindent{0pt} % set indent to zero
@@ -119,14 +120,15 @@
 \vspace*{-1.5cm}
 {\begin{center}\footnotesize\date{Compiled: \today ~\currenttime}\end{center}}
 
+
 \beginsupplement
 
-\include{supp_tex/figsgage}
 \include{supp_tex/extendedmethods}
 \include{supp_tex/phylaperformance}
+\include{supp_tex/figsgage}
 \include{supp_tex/atypical}
 \include{supp_tex/keyparams}
-\include{supp_tex/figscereus}
+% \include{supp_tex/figscereus}
 
 \begin{table}[]
   \centering

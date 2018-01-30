@@ -46,25 +46,73 @@
     \label{fig:simgenome}
 \end{figure}
 
-
-
+%  I need to do this to deal with the page breaks
 \begin{figure}[H]
   \centering
-
-  \foreach \x in {1,2,...,22}
-  {
-
+  \foreach \x in {1,2,...,5}{
     \begin{subfigure}[b]{.45\textwidth}
       \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_genome.png}
-      % \caption{\textit{E. coli MG1655} (NC\_000913.3)}
-      % \label{fig:ent_coli}
     \end{subfigure}
     \begin{subfigure}[b]{.45\textwidth}
       \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_gene.png}
-      % \caption{\textit{K. pneumoniae subsp. pneumoniae HS11286} (CP003200.1) }
-      % \label{fig:ent_pneumo}
     \end{subfigure}
   }
-  \caption{riboScan.py,riboSelect.py, and riboSnag.py were run on all the genomes used as references for \textit{de fere novo} assemblies. Consensus alignment depth (grey bars) and Shannon entropy (black points, smoothed entropy as red line) for aligned rDNA regions.  Similar to Figure 3 in the main text, for each genome, a gene neighboring the first rDNA operon was identified, and used to extract homologous rDNA operons from up to 25 other isolates at the species level. In most cases, the entropy is lower in homologous rDNAs than across all the rDNAs in a given genome.}
   \label{fig:ent_gage}
+\end{figure}
+
+% And each set here after
+\begin{figure}[H]\ContinuedFloat
+  \centering
+  \foreach \x in {6,7,...,10}
+  {
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_genome.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_gene.png}
+    \end{subfigure}
+  }
+\end{figure}
+
+% 11-15
+\begin{figure}[H]\ContinuedFloat
+  \centering
+  \foreach \x in {11,12,...,15}
+  {
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_genome.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_gene.png}
+    \end{subfigure}
+  }
+\end{figure}
+
+% And each set here after
+\begin{figure}[H]\ContinuedFloat
+  \centering
+  \foreach \x in {16,17,...,20}
+  {
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_genome.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_gene.png}
+    \end{subfigure}
+  }
+\end{figure}
+
+%  I need to do this to deal with the page breaks
+\begin{figure}[H]\ContinuedFloat
+  \centering
+  \foreach \x in {21,22}{
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_genome.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{.45\textwidth}
+      \includegraphics[width=0.95\textwidth]{entropy_results_figs/\x_gene.png}
+    \end{subfigure}
+  }
+  \label{fig:ent_gage}
+  \caption{riboScan.py,riboSelect.py, and riboSnag.py were run on all the genomes used as references for \textit{de fere novo} assemblies. Consensus alignment depth (grey bars) and Shannon entropy (black points, smoothed entropy as red line) for aligned rDNA regions.  Similar to Figure 3 in the main text, for each genome, a gene neighboring the first rDNA operon was identified, and used to extract homologous rDNA operons from up to 25 other isolates at the species level. In most cases, the entropy is lower in homologous rDNAs than across all the rDNAs in a given genome.}
 \end{figure}
