@@ -1,0 +1,26 @@
+\begin{table}[]
+\begin{center}
+  \caption{Assembling \textit{S. aureus} UAMS-1 with BugBuilder. We did not have access to critical information about the pipeline parameters used in the original assembly. This prevented exact recapitulation of the published results. Therefore, we approximated the settings based on notes from the publication. The performance of Pilon \cite{Walker2014a}, GapFiller \cite{Boetzer2012}, or no finishing software was assessed with both the \textit{de fere novo} and \textit{de novo} assemblies. rDNA counts were visually determined using Mauve; all other metrics were generated with QUAST, using the scaffolds from the assemblies and the \textit{S. aureus} MRSA252 reference. Misassembly/mismatch stats were removed, as the reference and sequenced strain have an average nucleotide identity of 97.62\%, and the misassemblies cannot be differentiated from strain differences with QUAST. Blue and red highlight the best and worst results, respectively.}
+\begin{tabular}{lrrr|rrr}
+
+   & \multicolumn{3}{c}{\textbf{\textit{de fere novo}}} & \multicolumn{3}{c}{\textbf{\textit{de novo}}} \\
+   & \textbf{GapFiller} & \textbf{Pilon} & \textbf{--} & \textbf{Gapfiller} &  \textbf{Pilon} & \textbf{--} \\
+  rDNAs & \cellcolor[HTML]{CDCDF9}3 & \cellcolor[HTML]{CDCDF9}3 &\cellcolor[HTML]{CDCDF9} 3 & 0 & 0 & 0\\
+  \# contigs ($\geq$ 0 bp) & 1 & 1 & 1 & 1 & 1 & 1 \\
+  Total length & 2773352 & \cellcolor[HTML]{CDCDF9}2781986 & 2763179 & 2768273 & 2770267 & \cellcolor[HTML]{FBDADA}2752929 \\
+  Reference length & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 \\
+  GC (\%) & 32.78 & 32.80 & 32.78 & 32.72 & 32.73 & 32.71 \\
+  Reference GC (\%) & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 \\
+  Unaligned length & 20087 & \cellcolor[HTML]{CDCDF9}15391 & 19075 & 18980 & 16819 & \cellcolor[HTML]{FBDADA}20141 \\
+  Genome fraction (\%) & 94.736 & \cellcolor[HTML]{CDCDF9}94.941 & 94.508 & 94.487 & 94.604 & \cellcolor[HTML]{FBDADA}94.105 \\
+  Duplication ratio & 1.001 & 1.004 & \cellcolor[HTML]{CDCDF9}1.000 & 1.002 & 1.003 & \cellcolor[HTML]{CDCDF9}1.000 \\
+  \# N's per 100 kbp & 151.44 & \cellcolor[HTML]{CDCDF9}58.59 & 160.65 & 184.23 & 111.00 & \cellcolor[HTML]{FBDADA}200.73 \\
+  Largest alignment & 403935 & \cellcolor[HTML]{CDCDF9}469521 & \cellcolor[HTML]{FBDADA}403508 & 459120 & 459623 & \cellcolor[HTML]{FBDADA}403508 \\
+  Total aligned length & 2753265 & \cellcolor[HTML]{CDCDF9}2766595 & 2744104 & 2749293 & 2753448 & \cellcolor[HTML]{FBDADA}2732788 \\
+  NA50 & \cellcolor[HTML]{CDCDF9}223096 & 195659 & 222384 & 205820 & \cellcolor[HTML]{FBDADA}164646 & 222384 \\
+  NGA50 & 176550 & 177158 & \cellcolor[HTML]{CDCDF9}222384 &\cellcolor[HTML]{FBDADA} 157488 & 164646 & 176039 \\
+  LA50 & 5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{FBDADA}6 & \cellcolor[HTML]{CDCDF9}5 \\
+  LGA50 & 6 & 6 & \cellcolor[HTML]{CDCDF9}5 & 6 & 6 & 6 \\
+\end{tabular}
+\end{center}
+\end{table}

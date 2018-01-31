@@ -92,6 +92,7 @@
     margin=0pt,
     width=0.9\textwidth]{caption}
 \usepackage[list=true]{subcaption}  % allow for subfigures with captions
+\DeclareCaptionSubType*[arabic]{figure}  % unlimited subfigures (ie, not a-z)
 \usepackage{amssymb}  % for checkmark symbols
 \usepackage{graphicx}  % trim figures
 \usepackage{colortbl}  % adjust table colors
@@ -123,184 +124,41 @@
 
 \beginsupplement
 
+%%%% METHODS
 \include{supp_tex/extendedmethods}
-\include{supp_tex/phylaperformance}
-\include{supp_tex/figsgage}
-\include{supp_tex/atypical}
 \include{supp_tex/keyparams}
-% \include{supp_tex/figscereus}
 
-\begin{table}[]
-  \centering
-  \caption{Hits resulting from searching the SRA database for various sequencing technologies as of January, 2017}
-  \label{table:searchterms}
-  \begin{tabular}{lrr}
-    \toprule
-    Search term & Hits & Percentage \\
-    \midrule
-    illumina & 2242225 & 94.27 \\
-    pacbio & 21131 & 0.89 \\
-    ion & 30560 & 1.28 \\
-    roche & 42445 & 1.78 \\
-    oxford & 12301 & 0.52 \\
-    solid & 29791 & 1.25 \\
-    \arrayrulecolor{lgray}\hline
-    Total & 2378453 & 100\\
-    \arrayrulecolor{black}
-    \bottomrule
-\end{tabular}
-\end{table}
+%%%% TABLES
+% table S1
+\include{supp_tex/tablesrahits}
+% table S2
+\include{supp_tex/tablecolis}
+% table S3
+\include{supp_tex/tableaccessions}
+% table S4
+\include{supp_tex/tablesoftware}
+% table S5
+\include{supp_tex/tablequastpao}
+% table S6
+\include{supp_tex/tablequastuams1}
+% table S7
+\include{supp_tex/phylaperformance}
+\include{supp_tex/tableperformance}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{table}[!h]
-\centering
-\caption{Accessions for 25 \textit{E. coli} genomes used to calculate substitution rate}
-\label{table:accessions}
-\begin{tabular}{l}
-  \toprule
-
-  GCA\_000005845.2\_ASM584v2                    \\
-  GCA\_000019385.1\_ASM1938v1                   \\
-  GCA\_000026245.1\_ASM2624v1                   \\
-  GCA\_000026345.1\_ASM2634v1                   \\
-  GCA\_000026545.1\_ASM2654v1                   \\
-  GCA\_000146735.1\_ASM14673v1                  \\
-  GCA\_000257275.1\_ASM25727v1                  \\
-  GCA\_000520055.1\_ASM52005v1                  \\
-  GCA\_000732965.1\_ASM73296v1                  \\
-  GCA\_001007915.1\_ASM100791v1                 \\
-  GCA\_001442495.1\_ASM144249v1                 \\
-  GCA\_001469815.1\_ASM146981v1                 \\
-  GCA\_001660565.1\_ASM166056v1                 \\
-  GCA\_001660585.1\_ASM166058v1                 \\
-  GCA\_001753565.1\_ASM175356v1                 \\
-  GCA\_001888075.1\_ASM188807v1                 \\
-  GCA\_001901025.1\_ASM190102v1                 \\
-  GCA\_001936315.1\_ASM193631v1                 \\
-  GCA\_002056065.1\_ASM205606v1                 \\
-  GCA\_002078295.1\_ASM207829v1                 \\
-  GCA\_002156825.1\_ASM215682v1                 \\
-  GCA\_002163935.1\_ASM216393v1                 \\
-  GCA\_002192275.1\_ASM219227v1                 \\
-  GCA\_002220265.1\_ASM222026v1                 \\
-  GCA\_900096795.1\_Ecoli\_AG100\_Sample3\_Doxycycline\_Assembly \\
-  \bottomrule
-  {\tiny   All available at \texttt{ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/}}
-
-\end{tabular}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\begin{table}[]
-\centering
-\caption{Strain names and accessions for reference genomes used in this study.For the full list, which includes strains used in the supplementary data, SRA accession numbers for reads, and more, please consult the supplementary file ``strain\_metadata.tab''}.
-\label{table:strainlist}
-\begin{tabular}{ll}
-  \toprule
-  Strain Name & Accession \\
-  \midrule
-  \textit{E. coli MG1655} & NC\_000913.3 \\
-  \textit{E. coli Sakai} &  BA000007.2 \\
-  \textit{A. hydrophila ATCC 7966} & NC\_008570.1 \\
-  \textit{B. cereus ATCC 10987} & AE017194.1 \\
-  \textit{B. cereus NC7401} & NC\_016771.1 \\
-  \textit{B. fragilis 638R} & FQ312004.1 \\
-  \textit{K. pneumoniae} & CP003200.1\\
-  \textit{R. sphaeroides ATCC 17029} & NC\_009049.1, NC\_009050.1 \\
-  \textit{S. aureus TCH1516} & NC\_010079.1 \\
-  \textit{S. aureus MRSA252} & BX571856.1 \\
-  \textit{V. cholerae El Tor str. N16961} & NC\_002505.1, NC\_002506.1 \\
-  \textit{X. axonopodis pv. Citrumelo} & CP002914.1 \\
-  \textit{P. aeruginosa BAMCPA07-48} & CP015377.1 \\
-  \textit{P. aeruginosa ATCC 15692} & NZ\_CP017149.1\\
-  \bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[]
-  \centering
-  \caption{Software Versions}
-  \label{table:software}
-  \begin{tabular}{ll}
-    \toprule
-    Tool & Version \\
-    \midrule
-    Mauve & 2015-02-13 build 0 \\
-    BLAST+ & 2.2.28+ \\
-    Barrnap & 0.8 \\
-    BWA & 0.7.8-r455 \\
-    samtools & 1.4.1 \\
-    MAFFT & v7.310 \\
-    SPAdes & v3.9.0 \\
-    QUAST & 4.4 \\
-    bedtools & 2.17.0 \\
-    EMBOSS & 6.5.7 \\
-    pIRS & 2.0.2\\
-    seqtk & 1.2-r94\\
-    Parsnp & v1.2 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[]
-\centering
-\caption{QUAST \cite{Gurevich2013} results of \textit{P. aeruginosa} BAMCPA07-48 assemblies comparing \textit{de fere novo} assembly, \textit{de novo} assembly, and reference-based assembly (where the \textit{P. aeruginosa} ATCC 15692 reference is included in the \textit{de novo} assembly as a trusted contig).  Blue and red highlight the best and worst results, respectively.  riboSeed's \textit{de fere novo} assembly either outperforms or performs comparably to \textit{de novo} assembly in all categories.  Using the reference as a trusted contig results in longer assemblies but with a much higher rate of mismatches, indels, and misassemblies.}
-\label{table:full_ref_compare}
-\begin{tabular}{lrrr}
-  & \textbf{\textit{de fere novo}} & \textbf{\textit{de novo}} & \textbf{reference-based} \\
-Genome fraction (\%) & \cellcolor[HTML]{CDCDF9}98.106 & \cellcolor[HTML]{FBDADA}97.868 & 98 \\
-Duplication ratio & 1.001 & 1.001 & \cellcolor[HTML]{FBDADA}1.017 \\
-Largest alignment & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{CDCDF9}757685 \\
-Total aligned length & 6893293 & \cellcolor[HTML]{FBDADA}6876715 & \cellcolor[HTML]{CDCDF9}6993532 \\
-NGA50 & 176510 & 176510 & \cellcolor[HTML]{FBDADA}135376 \\
-LGA50 & \cellcolor[HTML]{CDCDF9}12 & 13 & \cellcolor[HTML]{FBDADA}14 \\
-% \textbf{Misassemblies} &  &  &  \\
-\# misassemblies & 2 & 2 & \cellcolor[HTML]{FBDADA}9 \\
-Misassembled contigs length & 212498 & 212498 & \cellcolor[HTML]{FBDADA}2347560 \\
-% \textbf{Mismatches} &  &  &  \\
-\# mismatches per 100 kbp & 1.89 & \cellcolor[HTML]{CDCDF9}1.69 & \cellcolor[HTML]{FBDADA}11.66 \\
-\# indels per 100 kbp & 2.48 & \cellcolor[HTML]{CDCDF9}2.44 & \cellcolor[HTML]{FBDADA}2.94 \\
-\# N's per 100 kbp & 0 & 0 & 0 \\
-% \textbf{Statistics without reference} &  &  &  \\
-\# contigs & \cellcolor[HTML]{CDCDF9}154 & 159 & 388 \\
-Largest contig & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{CDCDF9}1103106 \\
-Total length & 6893293 & \cellcolor[HTML]{FBDADA}6876715 & \cellcolor[HTML]{CDCDF9}7237564 \\
-Total length (\textgreater= 1000 bp) & 6865091 & \cellcolor[HTML]{FBDADA}6848513 & \cellcolor[HTML]{CDCDF9}7130244 \\
-Total length (\textgreater= 10000 bp) & \cellcolor[HTML]{CDCDF9}6687664 & 6663031 & \cellcolor[HTML]{FBDADA}6617370 \\
-Total length (\textgreater= 50000 bp) & \cellcolor[HTML]{CDCDF9}6242010 & 6168232 & \cellcolor[HTML]{FBDADA}5534330
-\end{tabular}
-\end{table}
-
-
-\begin{table}[ht]
-\begin{center}
-  \caption{Assembling \textit{S. aureus} UAMS-1 with BugBuilder. We did not have access to critical information about the pipeline parameters used in the original assembly; this prevented exact recapitulation of the published results. Therefore, we approximated the settings based on notes from the publication. The performance of Pilon \cite{Walker2014a}, GapFiller \cite{Boetzer2012}, or no finishing software was assessed with both the \textit{de fere novo} and \textit{de novo} assemblies. rDNA counts were visually determined using Mauve; all other metrics were generated with QUAST, using the scaffolds from the assemblies and the \textit{S. aureus} MRSA252 reference. Misassembly/mismatch stats were removed, as the reference and sequenced strain have an average nucleotide identity of 97.62\%, and the misassemblies cannot be differentiated from strain differences with QUAST. Blue and red highlight the best and worst results, respectively.}
-\begin{tabular}{lrrr|rrr}
-
-   & \multicolumn{3}{c}{\textbf{\textit{de fere novo}}} & \multicolumn{3}{c}{\textbf{\textit{de novo}}} \\
-   & \textbf{GapFiller} & \textbf{Pilon} & \textbf{--} & \textbf{Gapfiller} &  \textbf{Pilon} & \textbf{--} \\
-  rDNAs & \cellcolor[HTML]{CDCDF9}3 & \cellcolor[HTML]{CDCDF9}3 &\cellcolor[HTML]{CDCDF9} 3 & 0 & 0 & 0\\
-  \# contigs ($\geq$ 0 bp) & 1 & 1 & 1 & 1 & 1 & 1 \\
-  Total length & 2773352 & \cellcolor[HTML]{CDCDF9}2781986 & 2763179 & 2768273 & 2770267 & \cellcolor[HTML]{FBDADA}2752929 \\
-  Reference length & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 & 2902619 \\
-  GC (\%) & 32.78 & 32.80 & 32.78 & 32.72 & 32.73 & 32.71 \\
-  Reference GC (\%) & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 & 32.81 \\
-  Unaligned length & 20087 & \cellcolor[HTML]{CDCDF9}15391 & 19075 & 18980 & 16819 & \cellcolor[HTML]{FBDADA}20141 \\
-  Genome fraction (\%) & 94.736 & \cellcolor[HTML]{CDCDF9}94.941 & 94.508 & 94.487 & 94.604 & \cellcolor[HTML]{FBDADA}94.105 \\
-  Duplication ratio & 1.001 & 1.004 & \cellcolor[HTML]{CDCDF9}1.000 & 1.002 & 1.003 & \cellcolor[HTML]{CDCDF9}1.000 \\
-  \# N's per 100 kbp & 151.44 & \cellcolor[HTML]{CDCDF9}58.59 & 160.65 & 184.23 & 111.00 & \cellcolor[HTML]{FBDADA}200.73 \\
-  Largest alignment & 403935 & \cellcolor[HTML]{CDCDF9}469521 & \cellcolor[HTML]{FBDADA}403508 & 459120 & 459623 & \cellcolor[HTML]{FBDADA}403508 \\
-  Total aligned length & 2753265 & \cellcolor[HTML]{CDCDF9}2766595 & 2744104 & 2749293 & 2753448 & \cellcolor[HTML]{FBDADA}2732788 \\
-  NA50 & \cellcolor[HTML]{CDCDF9}223096 & 195659 & 222384 & 205820 & \cellcolor[HTML]{FBDADA}164646 & 222384 \\
-  NGA50 & 176550 & 177158 & \cellcolor[HTML]{CDCDF9}222384 &\cellcolor[HTML]{FBDADA} 157488 & 164646 & 176039 \\
-  LA50 & 5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{CDCDF9}5 & \cellcolor[HTML]{FBDADA}6 & \cellcolor[HTML]{CDCDF9}5 \\
-  LGA50 & 6 & 6 & \cellcolor[HTML]{CDCDF9}5 & 6 & 6 & 6 \\
-\end{tabular}
-\end{center}
-\end{table}
-
+%%%% FIGURES
+% Figure S1
+\include{supp_tex/figsalgo}
+% Figure S2
+\include{supp_tex/figsblast}
+% Figure S3
+\include{supp_tex/figsartificial}
+% Figure S4
+\include{supp_tex/figsgage}
+% Figure S5
+\include{supp_tex/figscereus}
+% Figure S6
+\include{supp_tex/atypical}
+% Figure S7
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak

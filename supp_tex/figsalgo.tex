@@ -1,0 +1,31 @@
+\SetKwProg{Scan}{riboScan}{ }{end}
+\SetKwProg{Select}{riboSelect}{ }{end}
+\SetKwProg{Seed}{riboSeed}{ }{end}
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{.6\linewidth}
+    \begin{algorithm}[H]
+      \Seed{(reference, riboSelect\_clusters, reads, iters, flanking\_width)}{
+        ref = reference\;
+        clusters = parse riboSelect\_clusters\;
+        region = clusters + flanking\_width\;
+        \For{i in iters}{
+          map reads to ref\;
+          \For{cluster in clusters}{
+            filter and extract reads region\;
+            subassemble\;
+            return pseudocontig\;
+          }
+          assess subassembly\;
+          \If {success}{
+            make pseudogenome from pseudocontigs \;
+            ref = pseudogenome \;
+          }
+        }
+        run assembler with reads and pseudocontigs\;
+      }
+    \end{algorithm}
+  \end{minipage}
+  \caption{Pseudocode of riboSeed algorithm}
+  \label{fig:algo}
+\end{figure}

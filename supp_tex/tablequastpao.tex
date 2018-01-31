@@ -1,0 +1,28 @@
+\begin{table}[]
+\centering
+\caption{QUAST \cite{Gurevich2013} results of \textit{P. aeruginosa} BAMCPA07-48 assemblies comparing \textit{de fere novo} assembly, \textit{de novo} assembly, and reference-based assembly (where the \textit{P. aeruginosa} ATCC 15692 reference is included in the \textit{de novo} assembly as a trusted contig).  Blue and red highlight the best and worst results, respectively.  riboSeed's \textit{de fere novo} assembly either outperforms or performs comparably to \textit{de novo} assembly in all categories.  Using the reference as a trusted contig results in longer assemblies but with a much higher rate of mismatches, indels, and misassemblies.}
+\label{table:full_ref_compare}
+\begin{tabular}{lrrr}
+  & \textbf{\textit{de fere novo}} & \textbf{\textit{de novo}} & \textbf{reference-based} \\
+Genome fraction (\%) & \cellcolor[HTML]{CDCDF9}98.106 & \cellcolor[HTML]{FBDADA}97.868 & 98 \\
+Duplication ratio & 1.001 & 1.001 & \cellcolor[HTML]{FBDADA}1.017 \\
+Largest alignment & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{CDCDF9}757685 \\
+Total aligned length & 6893293 & \cellcolor[HTML]{FBDADA}6876715 & \cellcolor[HTML]{CDCDF9}6993532 \\
+NGA50 & 176510 & 176510 & \cellcolor[HTML]{FBDADA}135376 \\
+LGA50 & \cellcolor[HTML]{CDCDF9}12 & 13 & \cellcolor[HTML]{FBDADA}14 \\
+% \textbf{Misassemblies} &  &  &  \\
+\# misassemblies & 2 & 2 & \cellcolor[HTML]{FBDADA}9 \\
+Misassembled contigs length & 212498 & 212498 & \cellcolor[HTML]{FBDADA}2347560 \\
+% \textbf{Mismatches} &  &  &  \\
+\# mismatches per 100 kbp & 1.89 & \cellcolor[HTML]{CDCDF9}1.69 & \cellcolor[HTML]{FBDADA}11.66 \\
+\# indels per 100 kbp & 2.48 & \cellcolor[HTML]{CDCDF9}2.44 & \cellcolor[HTML]{FBDADA}2.94 \\
+\# N's per 100 kbp & 0 & 0 & 0 \\
+% \textbf{Statistics without reference} &  &  &  \\
+\# contigs & \cellcolor[HTML]{CDCDF9}154 & 159 & 388 \\
+Largest contig & 630503 & \cellcolor[HTML]{FBDADA}402463 & \cellcolor[HTML]{CDCDF9}1103106 \\
+Total length & 6893293 & \cellcolor[HTML]{FBDADA}6876715 & \cellcolor[HTML]{CDCDF9}7237564 \\
+Total length (\textgreater= 1000 bp) & 6865091 & \cellcolor[HTML]{FBDADA}6848513 & \cellcolor[HTML]{CDCDF9}7130244 \\
+Total length (\textgreater= 10000 bp) & \cellcolor[HTML]{CDCDF9}6687664 & 6663031 & \cellcolor[HTML]{FBDADA}6617370 \\
+Total length (\textgreater= 50000 bp) & \cellcolor[HTML]{CDCDF9}6242010 & 6168232 & \cellcolor[HTML]{FBDADA}5534330
+\end{tabular}
+\end{table}

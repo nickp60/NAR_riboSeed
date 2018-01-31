@@ -1,47 +1,13 @@
 \section*{Performance Across Prokaryotic Phyla}
 \subsection*{Performance on Archaeal Data}
 
-We assessed the effectiveness of riboSeed in assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, our ability to benchmark was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) and \textit{Methanobacterium formicicum st. JCM10132} (DRR017790).\textit{Methanosarcina barkeri Fusaro DSMZ804} and  \textit{Methanobacterium formicicum st. BRM9}  were the only isolates that were suitable for riboSeed, in that there was publicly available short read data, more than a single rDNA operon, and an appropriate complete reference genome at the species level.  Results are shown in Table \ref{table:phyla}.
+We assessed the effectiveness of riboSeed in assembling archaeal genomes. Most (\ttilde55\%) archaeal genomes have only a single rDNA, and none has been observed to have more than four. As riboSeed requires a sequencing dataset and a reference genome, our ability to benchmark was limited; of the 104 entries in \textit{rrn}DB with multiple rDNAs, only 7 had multiple entries at the species level. Among those, only 2 had publicly available short read data. We used riboSeed to re-assemble \textit{Methanosarcina barkeri Fusaro DSMZ804} (SRR2064286) and \textit{Methanobacterium formicicum st. JCM10132} (DRR017790).\textit{Methanosarcina barkeri Fusaro DSMZ804} and  \textit{Methanobacterium formicicum st. BRM9}  were the only isolates that were suitable for riboSeed, in that there was publicly available short read data, more than a single rDNA operon, and an appropriate complete reference genome at the species level.  Results are shown in Table \ref{table:phyla}A.
 
-\textit{Methanosarcina barkeri Fusaro DSMZ804} was sequenced using an Illumina HiSeq2000 with 101bp paired-end reads, with an average fragment length of 400bp. We downsampled to use 5\% of the 19.4Gbp dataset with seqtk (\href{https://github.com/lh3/seqtk}{https://github.com/lh3/seqtk}). \textit{Methanosarcina barkeri str. Wiesmoor} (CP009526.1) was used as a reference. The resulting riboSeed assembly showed correct assembly of 3 of 3 rDNAs, while \textit{de novo} assemble failed to resolve any.
+\textit{Methanosarcina barkeri Fusaro DSMZ804} was sequenced using an Illumina HiSeq2000 with 101bp paired-end reads, with an average fragment length of 400bp. Using seqtk (\href{https://github.com/lh3/seqtk}{https://github.com/lh3/seqtk}), we downsampled to use 5\% of the 19.4Gbp dataset. \textit{Methanosarcina barkeri str. Wiesmoor} (CP009526.1) was used as a reference. The resulting riboSeed assembly showed correct assembly of 3 of 3 rDNAs, while \textit{de novo} assemble failed to resolve any.
 
 \textit{M. formicicum st. JCM10132} was sequenced on an Ion Torrent PGM, generating 106.5Mbp of 89bp single-end reads. \textit{M formicicum BRM9} (CP006933.1) was used as a reference. While riboSeed with default parameters did not resolve any of the assembly gaps (final assembly \textit{k}-mers 21, 33, 55, and 77), re-running the final assembly with \textit{k}-mers of 21, 33, 55, 77, and 99 resulted in closing 2 of 2 rDNA gaps. We are unsure why the addition of 99-mers improved assembly with 89-bp reads, but we are actively investigating this. This shows that riboSeed is not limitted to Illumina short read data, and can be applied to Ion Torrent data.
 
 Taken together, we show that given appropriate datasets and parameters, archaeal datasets can be processed in the same manner used for bacteria.
 
 \subsection*{Performance Across Bacterial Phyla}
-In order to assess riboSeed's wider applicability, we selected additional datasets representing major bacterial phyla for those not already present in our analysis. In all cases, riboSeed improved the assemblies compared to the \textit{de novo} with no missassemblies introduced (Table \ref{table:phyla}). Thus, we conclude that riboSeed can be applied to a wide range of organisms.
-
-\begin{sidewaystable}[!hb]
-  \centering
-  \caption{Comparison of \textit{de novo} and riboSeed's \textit{de fere novo} assemblies}
-  \label{table:phyla}
-  %                 p       o         strain SRA       name     acc    rDNAs             good   -     bad            good    -      bad
-  \begin{tabular}{p{2.25cm}p{2.65cm}p{5.75cm}p{1.75cm}p{2.25cm}p{1.95cm}p{.6cm}>{\hfill}p{.4cm}p{.2cm}p{.1cm}>{\hfill}p{.4cm}p{.2cm}p{.1cm}}
-    % \arrayrulecolor{black}
-    \toprule
-    \multirow{2}{*}{Phylum} & \multirow{2}{*}{Class}  & \multicolumn{2}{l}{\textbf{Sequenced Strain}}  &  \multicolumn{3}{l}{\textbf{Reference Strain}} &  \multicolumn{3}{c}{\textit{de novo}} & \multicolumn{3}{c}{\textit{de fere novo}} \\
-    & & Name & SRA & Name & Accession & rDNAs & \textbf{$\checkmark$} & -- & $\times$ & \textbf{$\checkmark$} & -- & $\times$  \\
-   % \cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}\cmidrule(l){4-4}\cmidrule(l){5-6}\cmidrule(l){7-9}\cmidrule(l){10-12}
-    \toprule
-    Actinobacteria & Actinobacteria        & \textit{Corynebacterium  diphtheriae}   NCTC 13129      & SRR4271515 & 241 &  NC\_016782.1      & 5  & \textbf{0} & 5  & 0 & \textbf{3} & 2 & 0 \\
-    Chlamydiae     & Chlamydiia            & \textit{Chlamydia        trachomatis}  Population 1 & SRR5942978 & 434/Bu & NC\_010287.1     & 2  & \textbf{0} & 2  & 0 & \textbf{2} & 0 & 0 \\
-    Firmicutes     & Clostridia            & \textit{Clostridioides   difficile}    C00005970                                             & ERR251735  & 630  &AM180355.1       & 11 & \textbf{0} & 11 & 0 & \textbf{9} & 2 & 0 \\
-    Proteobacteria & Betaproteobacteria    & \textit{Burkholderia     cepacia}      DHQP2016-12-119                                       & SRR6334321 & ATCC25416       & NZ\_CP012981.1    & 6  & \textbf{0} & 6  & 0 & \textbf{3} & 3 & 0 \\
-    Proteobacteria & Deltaproteobacteria   & \textit{Myxococcus       xanthus}      DSM 16526                                             & SRR4236978 & DK\_1622 & NC\_008095.1
-  & 4  & \textbf{0} & 4  & 0 & \textbf{4} & 0 & 0 \\
-    Proteobacteria & Epsilonproteobacteria & \textit{Helicobacter     cinaedi}      MRY12-0051                                            & DRR090193  & ATCC BAA-847 & NC\_020555.1 & 3  & \textbf{0} & 3  & 0 & \textbf{3} & 0 & 0 \\
-    Tenericutes    & Mollicutes            & \textit{Mycoplasma       hominis}      Australia                                             & ERR1938252 & ATCC\_23114  &NC\_013511.1       & 2  & \textbf{0} & 2  & 0 & \textbf{2} & 0 & 0 \\
-    Euryarchaeota  & Methanobacteria       & \textit{Methanobacterium formicicum}   JCM10132                                              & DRR017790  & BRM9        &CP006933.1        & 3  & \textbf{0} & 3  & 0 & \textbf{3} & 0 & 0 \\
-    Euryarchaeota  & Methanomicrobia       & \textit{Methanosarcina    barkeri}     Fusaro DSMZ804                                        & SRR2064286 & Wiesmoor    &CP009526.1        & 2  & \textbf{0} & 2  & 0 & \textbf{2} & 0 & 0 \\
-    % \arrayrulecolor{black}
-
-    \bottomrule
-    \begin{minipage}[t]{.5\textwidth}
-      {\tiny
-        $\checkmark$  correct assembly; --  unnassembled; $\times$  incorrect assembly\\
-        % * run with \texttt{--centers 7:0} option to group tandem rDNAs
-      }
-    \end{minipage}
-  \end{tabular}
-\end{sidewaystable}
+In order to assess riboSeed's wider applicability, we selected additional datasets representing major bacterial phyla for those not already present in our analysis. In all cases, riboSeed improved the assemblies compared to the \textit{de novo} with no missassemblies introduced (Table \ref{table:phyla}B). Thus, we conclude that riboSeed can be applied to a wide range of organisms.
