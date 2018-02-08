@@ -1,0 +1,30 @@
+We present riboSeed: a software suite that allows users to perform \textit{de fere novo} assembly, given a reference genome sequence from a closely-related organism and single or paired-end short reads to be assembled (Figure \ref{fig:overview}). The code is primarily written in Python3, with accessory shell and R scripts.
+
+
+riboSeed relies on a closed reference genome assembly that is sufficiently closely-related to the isolate being assembled (which can be estimated using an alignment-free approach such as the KGCAK database \cite{Wang2015b}, or a kmer based method such as Kraken \cite{Wood2014}), in which rDNA regions are assembled and assumed to be in the correct genomic context.
+
+In an ideal scenario, reference selection would consist of two steps:  isolate identification (using Kraken), and then average nucleotide identity analysis to find closest complete reference. We outline protocols for reference selection in Supplementary Information, and in riboSeed documentation at \url{http://riboseed.readthedocs.io/en/latest/REFERENCE.html}.
+
+\subsection*{Usage}
+Installation (via either conda, pip, or GitHub), installs the \texttt{ribo} program. Installation using conda also installs third-party tool dependencies, such as SPAdes, and is recommended. The riboSeed pipeline can be executed with a single command, \texttt{ribo run}, or under stepwise control by the user by means of distinct commands. \texttt{ribo run} performs reannotation of rDNAs in the reference genome (\texttt{scan} command), operon inference (\texttt{select} command), and \textit{de fere novo} assembly (\texttt{seed} command).  The most commonly used parameters are accessible via the \texttt{run} command. Alternatively, the full set of parameters for riboSeed can be defined within a configuration file.
+
+All steps in the assembly are controlled by riboSeed commands described below, as \texttt{ribo <command>}:
+
+\subsection*{1. Preprocessing}
+
+\textbf{\texttt{scan}}\\
+\texttt{scan} uses Barrnap (\url{https://github.com/tseemann/barrnap}) to annotate rRNAs in the reference genome, and EMBOSS's seqret \cite{Rice2000a} to create GenBank, FASTA, and GFF formatted versions of the reference genome. This preprocessing step unifies the annotation vocabulary for downstream processes.\\
+\\
+\textbf{\texttt{select}}\\
+\texttt{select} infers ribosomal operon structure from the genomic location of constituent 16S, 23S and 5S sequences. Jenks Natural Breaks algorithm is used to group rRNA annotations into likely operons on the basis of genomic coordinates, using the number of 16S annotations to set the number of breaks. Output defines individual rDNA clusters and describes component elements in a plain text file. This output can be manually adjusted before assembly if clustering does not reflect the known arrangement of operons, for example based on visualization of the annotations in a genome browser.
+
+\subsection*{2. \textit{De Fere Novo} Assembly}
+
+\textbf{\texttt{seed}}\\
+\texttt{seed} implements the algorithm described in Figure S1. Short reads for the sequenced isolate are mapped to the reference genome using BWA \cite{Li2009}. Reads that map to each annotated rDNA and its flanking regions (where the flanking regions consist of 1kb upstream and 1kb downstream of the rDNA, by default) are extracted into subsets (one subset per cluster). Each subset is independently assembled into a representative pseudocontig with SPAdes \cite{Bankevich2012}, using the reference rDNA regions as a trusted contig (or untrusted, if mapping quality is poor). Resulting pseudocontigs are evaluated for inclusion in future mapping/subassembly iterations based on length, and concatenated into a pseudogenome in which pseudocontigs are separated by 1kb of Ns as a spacer. As we are only concerned with flanking regions, the order in which the pseudocontigs are concatenated is arbitrary. A 1kb spacer length was chosen for this study to ensure that reads did not span the spacer. Pseudocontig generation is repeated in each iteration of the algorithm, using the previous round's pseudogenome as the reference.
+
+
+After a specified number of iterations (3 by default), SPAdes is used to assemble all short reads in a hybrid assembly using pseudocontigs from the final iteration as ``trusted contigs'' (or ``untrusted contigs'' if the mapping quality of reads to that pseudocontig falls below a threshold). As a control, the short reads are also \textit{de novo} assembled without the pseudocontigs.
+
+
+This implementation of riboSeed uses SPAdes to perform both subassembly and the final \textit{de fere novo} assembly, but the pseudocontigs could be submitted to any hybrid assembler that accepts short read libraries and contigs. After assembly, \textit{de fere novo} and \textit{de novo} assemblies are assessed with QUAST \cite{Gurevich2013}.

@@ -1,0 +1,47 @@
+% \begin{sidewaystable}
+\begin{table*}[!hb]
+  \centering
+  \caption{Comparison of \textit{de novo} and riboSeed's \textit{de fere novo} assemblies}
+  \label{table:assemblyresults}
+  \begin{tabular}{p{.3cm}p{5.2cm}p{.95cm}p{.75cm}p{.75cm}p{2.63cm}p{.6cm}>{\hfill}p{.4cm}p{.2cm}p{.1cm}>{\hfill}p{.4cm}p{.2cm}p{.1cm}}
+    % \arrayrulecolor{black}
+    \toprule
+    & \multirow{2}{*}{Sequenced Strain Name} & \multirow{2}{*}{Platform}  & \multirow{2}{*}{Length} & \multirow{2}{*}{Depth}  &  \multicolumn{2}{c}{Reference Strain} &  \multicolumn{3}{c}{\textit{de novo}} & \multicolumn{3}{c}{\textit{de fere novo}} \\
+   & & & & & Name & rDNAs & \textbf{$\checkmark$} & -- & $\times$ & \textbf{$\checkmark$} & -- & $\times$  \\
+   % \cmidrule{1-1}\cmidrule(l){2-2}\cmidrule(l){3-3}\cmidrule(l){4-4}\cmidrule(l){5-6}\cmidrule(l){7-9}\cmidrule(l){10-12}
+    \toprule
+   \textbf{A.}  & \textit{P. aeruginosa} BAMCPA07-48 & HiSeq & 100 & 200x & ATCC 15692  & 4 & \textbf{0} & 4 & 0 & \textbf{4} & 0 & 0 \\
+    \botrule
+   \textbf{B.} & \textit{S.aureus} UAMS-1 & MiSeq & 300 & 110x & MRSA252  & 5 &  \textbf{0} & 5 & 0   & \textbf{2} & 3 & 0 \\
+    \toprule
+    & \textit{A. hydrophila} SSU   & HiSeq   & 101   & 250   & ATCC 7966 & 10 & \textbf{0} & 10 & 0  & \textbf{4} & 6 & 0  \\
+
+    % & \textit{B. cereus} VD118    & HiSeq   & 101   & 300  & ATCC 10987  & 12 & \textbf{0} & 12 & 0  & \textbf{1} & 11 & 0  \\
+
+    & \textit{B. cereus} ATCC 10987   & MiSeq   & 250   & 100  & NC7401 & 14 & \textbf{0} & 14 & 0  & \textbf{12} & 2 & 0  \\
+
+    & \textit{B. fragilis} HMW 615   & HiSeq   & 101   & 250   & 638R & 6 & \textbf{0} & 5 & 1  & \textbf{0} & 3 & 3  \\
+
+    \textbf{C.} & \textit{R. sphaeroides} 2.4.1 & HiSeq & 101 & 210 & ATCC 17029  & 4 & \textbf{0} & 4 & 0  & \textbf{1} & 3 & 0  \\
+
+    & \textit{R. sphaeroides} 2.4.1 & MiSeq & 251 & 100 & ATCC 17029  & 4 & \textbf{1} & 2 & 1  & \textbf{1} & 2 & 1  \\
+
+    & \textit{S. aureus} M0927 & HiSeq & 101 & 250 & USA300\_TCH1516 & 5 & \textbf{0} & 5 & 0  & \textbf{3} & 2 & 0  \\
+
+    & \textit{V. cholerae} CO 0132(5) & HiSeq & 100 & 110 & El Tor str. N16961  & 8 & \textbf{0} & 8 & 0  & \textbf{5} & 3 & 0  \\
+
+    & \textit{V. cholerae} CO 0132(5) & MiSeq   & 250   & 100   & El Tor str. N16961 & 8 & \textbf{0} & 8 & 0  & \textbf{4} & 4 & 0  \\
+
+    & \textit{X. axonopodis} pv. \textit{Manihotis} UA323 & HiSeq   & 101   & 250   & pv. \textit{Citrumelo} & 2 & \textbf{0} & 1 & 1  & \textbf{2} & 0 & 0 \\
+    % \arrayrulecolor{black}
+
+    \botrule
+    \begin{minipage}[t]{.5\textwidth}
+      {\tiny
+        $\checkmark$  correct assembly; --  unnassembled; $\times$  incorrect assembly\\
+        % * run with \texttt{--centers 7:0} option to group tandem rDNAs
+      }
+    \end{minipage}
+  \end{tabular}
+\end{table*}
+% \end{sidewaystable}

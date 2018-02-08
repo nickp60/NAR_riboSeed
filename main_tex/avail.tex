@@ -1,0 +1,16 @@
+\subsection*{Availability of data and materials}
+The riboSeed pipeline and datasets generated in this study are available on the riboSeed website, \url{https://nickp60.github.io/riboSeed/}. The software is released under the MIT licence. The modified BugBuilder pipeline used here is provided at \url{https://github.com/nickp60/BugBuilder}. Reference genomes used for this study can be found in Table S3, and the versions of other software used in this study are found in Table S4.
+
+\subsection*{Choice of parameters}
+Settings used for analyses in this manuscript are default (except where otherwise noted) as of riboSeed version 0.4.35 \cite{nicholas_r_waters_2017_1037965}.
+
+
+\subsection*{Validating assembly across rDNA regions}
+
+To evaluate performance of \textit{de fere novo} assembly compared to \textit{de novo} assembly methods, we used Mauve to visualize syntenic regions and contig breaks of each riboSeed assembly in relation to the reference genome used to generate pseudocontigs. We categorized each rDNA in an assembly as either correct, unassembled, incorrect, or ambiguous, as follows.
+
+An rDNA assembly is classed as ``correct'' if two criteria are met: (i) the assembly merges two contigs across an rDNA region such that, based on the reference, the flanking regions of the \textit{de fere novo} assembly are syntenous with those of the reference; and (ii) the assembled contig extends at least 90\% of the flanking length. A cluster is defined as ``unassembled'' if the ends of one or more contigs align within the rDNA or flanking regions (extension across the rDNA region is not achieved). Finally, if two contigs assemble across a rDNA region in a manner that conflicts with the orientation indicated in the reference genome, suggesting missassembly, the rDNA region is classified as ``incorrect''.
+
+For analyses where manual inspection was intractable (such as repeated simulations), \texttt{ribo score} was used to categorize the rDNA assemblies. In cases where the program could not distinguish between a correct assembly or an incorrect assembly, the rDNA was classed as ``ambiguous''.
+
+In all cases, SPAdes was used with the same parameters for both \textit{de fere novo} assembly and \textit{de novo} assembly, apart from addition of pseudocontigs in the \textit{de fere novo} assembly.

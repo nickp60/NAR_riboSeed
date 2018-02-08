@@ -1,0 +1,7 @@
+We used the Genome Assembly Gold-standard Evaluation for Bacteria (GAGE-B) datasets \cite{Magoc2013} to assess the performance of riboSeed against a set of well-characterized assemblies. These datasets represent a broad range of challenges; low GC content and tandem rDNA repeats prove challenging to the riboSeed procedure.
+
+\textit{Mycobacterium abscessus} has only a single rDNA operon and does not suffer from the issue of rDNA repeats, so was excluded from this analysis.  We also excluded the \textit{B. cereus} VD118 HiSeq dataset, as metagenomic analysis revealed likely contamination (see Figure S5 and supplementary data).
+
+When the reference used in the GAGE-B study was also the sequenced strain (e.g. \textit{Rhodobacter sphaeroides}  and  \textit{Bacillus cereus}), we chose an alternate reference, as using the original reference could provide an unfair advantage to riboSeed. The GAGE-B datasets include both raw and trimmed reads; in all cases, the trimmed reads were used. Results are shown in Table \ref{table:assemblyresults}C.
+
+Compared to \textit{de novo} assembly, the \textit{de fere novo} approach improved the majority of assemblies. In the case of the \textit{S. aureus} and \textit{R. sphaeroides} datasets, particular difficulty was encountered for all references tested. In the case of \textit{Bacteroides fragilis}, the entropy plot (Figure S4.3) shows that sequence variability on the 5' end of the operon is much lower within the genome compared to many of the other within-genome figures, possibly contributing to misassembly.

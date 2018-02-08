@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\caption{Some of the available \textit{in silico} genome polishing tools for gap closure}
+\label{table:tools}
+% \resizebox{\textwidth}{!}{
+\begin{tabular*}{\textwidth}{p{2.9cm}p{13cm}}
+  \toprule
+  Tool &  Method Summary \\
+  \colrule
+  GapFiller \cite{Boetzer2012} & iteratively uses paired-end reads to close contig junctions \\
+  GapCloser \cite{Luo2012} & uses paired-end reads to close contig junctions \\
+  IMAGE \cite{Tsai2010} & iteratively uses local assemblies of reads belonging to  assembly gaps \\
+  CloG \cite{Yang2011} & uses trimmed \textit{de novo} contigs in hybrid assembly followed by a stitching algorithm \\
+  FGap \cite{Piro2014,Guizelini2016} & uses BLAST to find potential gap closures from alternate assemblies, libraries or references. \\
+  GFinisher \cite{Guizelini2016} & uses GC-skew to refine assemblies \\
+  GapFiller \cite{Nadalin2012} &  produces ``long-reads'' from paired-end sequencing data using a local assembler, which can then be used in a \textit{de novo} assembly. \\
+  CONTIGuator \cite{Galardini2011} & uses contigs from a \textit{de novo} assembly along with one or more reference sequences to generate a contig map and PCR primer sets to validate in the lab. \\
+  Konnector \cite{Vandervalk2015} & uses paired-end reads to make long reads to be used in a Bloom filter representation of a de Bruijn graph \\
+  MapRepeat\cite{Mariano2015} & uses a directed scaffolding method to fill in rDNA gaps, but limited to Ion Torrent reads, and affected by inversions between rDNAs \cite{Mariano2016} \\
+  Pilon \cite{Walker2014a} & compares mapping files to an assembly to correct mistakes and fill gaps \\
+  GRabB \cite{Brankovics2016} & selectively assembles tandem rDNAs and mitochondria\\
+  \botrule
+\end{tabular*}
+\end{table*}
