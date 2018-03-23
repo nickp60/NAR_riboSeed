@@ -4,17 +4,19 @@
 % May there be many tasty snails in pufferfish heaven
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[10pt]{article}
-% \includeonly{supp_tex/figsgage}
+% \includeonly{supp_tex/tableperformance}
 \usepackage{geometry}
 \geometry{marginparwidth=1cm,a4paper,verbose,tmargin=1.5cm,bmargin=1.5cm,lmargin=1.5cm,rmargin=1.5cm,headheight=0cm,headsep=0cm,footskip=0cm}
 \usepackage{cite}
 % \usepackage{ifthen}  % for plotting lots of figures in loops with conditionals
+
+\usepackage{adjustbox}
 \usepackage{float}  % for forcing figures to stay put
 \usepackage{hyperref} % make the references clickable
 \setlength\parindent{0pt} % set indent to zero
 \setlength{\parskip}{1.2em} % give a bit of space between paragraphs
 
-\bibliographystyle{plain} % citation and bib style
+% \bibliographystyle{plain} % citation and bib style
 \usepackage{grffile} %for underscores in file names
 \usepackage{rotating} % for sideways tables
 \usepackage[ruled]{algorithm2e} % for typesetting the riboSeed algorithm
@@ -36,11 +38,12 @@
 
 % supplementary (essentialy just resets numbering)
 \newcommand{\beginsupplement}{%
-  \setcounter{table}{0}
+   \setcounter{table}{0}
   \renewcommand{\thetable}{S\arabic{table}}%
   \setcounter{figure}{0}
   \renewcommand{\thefigure}{S\arabic{figure}}%
 }
+
 % pretty thought break
 \def \thoughtbr {\begin{center}\noindent\rule{.4\textwidth}{0.4pt}  {\raisebox{-.5ex}{$\sim$}}  \rule{.4\textwidth}{0.4pt}\end{center}}
 
